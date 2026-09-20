@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FOODTAP - Order Placed</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    color: #fff;
+    background: #090909;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+
+    background:
+        radial-gradient(circle at 15% 15%, rgba(255,112,67,.16), transparent 28%),
+        radial-gradient(circle at 85% 25%, rgba(255,87,34,.11), transparent 30%),
+        radial-gradient(circle at 50% 90%, rgba(255,112,67,.08), transparent 32%),
+        #090909;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+
+    background:
+        linear-gradient(
+            120deg,
+            rgba(255,255,255,.015),
+            transparent 30%,
+            rgba(255,112,67,.018),
+            transparent 70%
+        );
+
+    pointer-events: none;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    width: 100%;
+    padding: 17px 5%;
+
+    background: rgba(10,10,10,.84);
+    backdrop-filter: blur(18px);
+
+    border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.navbar {
+    max-width: 1400px;
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    color: #ff7043;
+
+    text-shadow:
+        0 0 20px rgba(255,112,67,.22);
+}
+
+.logo span {
+    color: #fff;
+}
+
+.container {
+    width: 90%;
+    max-width: 900px;
+    margin: auto;
+}
+
+.success-card {
+    margin: 70px auto;
+    padding: 50px 35px;
+
+    text-align: center;
+
+    background: rgba(255,255,255,.035);
+
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 28px;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.35);
+}
+
+.success-icon {
+    width: 90px;
+    height: 90px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 25px;
+
+    border-radius: 50%;
+
+    background: rgba(255,112,67,.12);
+    border: 2px solid #ff7043;
+
+    color: #ff7043;
+
+    font-size: 45px;
+    font-weight: 900;
+
+    box-shadow:
+        0 0 35px rgba(255,112,67,.15);
+}
+
+.success-card h1 {
+    font-size: clamp(34px,5vw,50px);
+    margin-bottom: 12px;
+}
+
+.success-card > p {
+    color: #999;
+    font-size: 15px;
+    line-height: 1.6;
+
+    margin-bottom: 30px;
+}
+
+.order-info {
+    max-width: 550px;
+    margin: 0 auto 30px;
+
+    padding: 22px;
+
+    background: rgba(255,255,255,.025);
+
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 17px;
+
+    text-align: left;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 12px 0;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.06);
+
+    font-size: 14px;
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-row span:first-child {
+    color: #888;
+}
+
+.info-row span:last-child {
+    color: #ddd;
+    font-weight: 700;
+    text-align: right;
+}
+
+.order-id {
+    color: #ff7043 !important;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.primary-btn,
+.secondary-btn {
+    padding: 14px 24px;
+
+    border-radius: 13px;
+
+    font-size: 14px;
+    font-weight: 900;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+.primary-btn {
+    border: none;
+
+    background: #ff7043;
+    color: #111;
+}
+
+.primary-btn:hover {
+    background: #ff855f;
+    transform: translateY(-2px);
+}
+
+.secondary-btn {
+    border: 1px solid rgba(255,255,255,.12);
+
+    background: rgba(255,255,255,.035);
+
+    color: #ddd;
+}
+
+.secondary-btn:hover {
+    border-color: #ff7043;
+    color: #ff7043;
+
+    transform: translateY(-2px);
+}
+
+footer {
+    margin-top: 30px;
+    padding: 35px 5%;
+
+    border-top:
+        1px solid rgba(255,255,255,.07);
+
+    text-align: center;
+
+    color: #777;
+    font-size: 13px;
+}
+
+footer strong {
+    color: #ff7043;
+}
+
+@media (max-width:600px) {
+
+    header {
+        padding: 14px 5%;
+    }
+
+    .logo {
+        font-size: 23px;
+    }
+
+    .success-card {
+        margin: 40px auto;
+        padding: 40px 20px;
+    }
+
+    .info-row {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .info-row span:last-child {
+        text-align: left;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+        width: 100%;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="navbar">
+
+```
+<div class="logo">
+    FOOD<span>TAP</span>
+</div>
+```
+
+</div>
+
+</header>
+
+<main class="container">
+
+<section class="success-card">
+
+<div class="success-icon">
+    ✓
+</div>
+
+<h1>
+    Order Placed Successfully
+</h1>
+
+<p>
+    Thank you for ordering with FOODTAP.
+    Your food is being prepared.
+</p>
+
+<div class="order-info">
+
+```
+<div class="info-row">
+
+    <span>
+        Order ID
+    </span>
+
+    <span
+        class="order-id"
+        id="orderId">
+        Loading...
+    </span>
+
+</div>
+
+
+<div class="info-row">
+
+    <span>
+        Payment
+    </span>
+
+    <span id="paymentMethod">
+        Loading...
+    </span>
+
+</div>
+
+
+<div class="info-row">
+
+    <span>
+        Order Total
+    </span>
+
+    <span id="orderTotal">
+        ₹0
+    </span>
+
+</div>
+
+
+<div class="info-row">
+
+    <span>
+        Status
+    </span>
+
+    <span>
+        PLACED
+    </span>
+
+</div>
+```
+
+</div>
+
+<div class="button-group">
+
+```
+<button
+    class="primary-btn"
+    onclick="viewOrders()">
+
+    View Orders
+
+</button>
+
+
+<button
+    class="secondary-btn"
+    onclick="trackOrder()">
+
+    Track Order
+
+</button>
+```
+
+</div>
+
+</section>
+
+</main>
+
+<footer>
+
+<strong>FOODTAP</strong>
+|
+Delicious food, delivered with care.
+
+</footer>
+
+<script>
+
+
+/* CURRENT USER */
+
+const currentUser = JSON.parse(
+    localStorage.getItem("foodtapCurrentUser") || "null"
+);
+
+if (!currentUser) {
+
+    window.location.href = "login.html";
+
+}
+
+
+/* CART */
+
+const cart = JSON.parse(
+    localStorage.getItem("foodtapCart") || "[]"
+);
+
+
+/* DELIVERY DETAILS */
+
+const deliveryDetails = JSON.parse(
+    localStorage.getItem("foodtapDeliveryDetails") || "null"
+);
+
+
+/* ORDER SUMMARY */
+
+const orderSummary = JSON.parse(
+    localStorage.getItem("foodtapOrderSummary") || "null"
+);
+
+
+/* PAYMENT */
+
+const paymentMethod =
+    localStorage.getItem("foodtapPaymentMethod") || "COD";
+
+
+const upiApp =
+    localStorage.getItem("foodtapUPIApp") || "";
+
+
+/* GENERATE ORDER ID */
+
+function generateOrderId() {
+
+    const existingOrderId =
+        localStorage.getItem("foodtapCurrentOrderId");
+
+    if (existingOrderId) {
+
+        return existingOrderId;
+
+    }
+
+
+    const orderId =
+        "FT" + Date.now().toString().slice(-8);
+
+
+    localStorage.setItem(
+        "foodtapCurrentOrderId",
+        orderId
+    );
+
+
+    return orderId;
+
+}
+
+
+/* PAYMENT DISPLAY */
+
+function getPaymentDisplayName() {
+
+    if (paymentMethod === "COD") {
+
+        return "Cash on Delivery";
+
+    }
+
+
+    if (paymentMethod === "UPI") {
+
+        if (upiApp) {
+
+            return "UPI - " + upiApp;
+
+        }
+
+        return "UPI";
+
+    }
+
+
+    if (paymentMethod === "CARD") {
+
+        return "Debit / Credit Card";
+
+    }
+
+
+    return paymentMethod;
+
+}
+
+
+/* SAVE ORDER */
+
+function saveOrder() {
+
+    const orderId =
+        generateOrderId();
+
+
+    const total =
+        orderSummary &&
+        orderSummary.total !== undefined
+
+        ? Number(orderSummary.total)
+
+        : cart.reduce(
+            function(sum, item) {
+
+                return (
+                    sum +
+                    Number(item.price || 0) *
+                    Number(item.quantity || 1)
+                );
+
+            },
+            0
+        ) + 60;
+
+
+    let orders = JSON.parse(
+        localStorage.getItem("foodtapOrders") || "[]"
+    );
+
+
+    /*
+       IMPORTANT:
+
+       Use the logged-in user's email
+       as the main permanent identifier.
+    */
+
+    const userEmail =
+        String(
+            currentUser.email ||
+            ""
+        ).trim();
+
+
+    const userName =
+        String(
+            currentUser.name ||
+            "Customer"
+        ).trim();
+
+
+    /*
+       Prevent duplicate order.
+    */
+
+    let existingOrder =
+        orders.find(function(order) {
+
+            return order.orderId === orderId;
+
+        });
+
+
+    if (!existingOrder) {
+
+        existingOrder = {
+
+            orderId: orderId,
+
+            /*
+               USER IDENTIFICATION
+            */
+
+            userId:
+                userEmail ||
+                userName ||
+                "customer",
+
+            email:
+                userEmail,
+
+            customerName:
+                userName,
+
+
+            /*
+               ORDER ITEMS
+            */
+
+            items:
+                Array.isArray(cart)
+                ? cart
+                : [],
+
+
+            /*
+               DELIVERY
+            */
+
+            deliveryDetails:
+                deliveryDetails,
+
+
+            /*
+               PRICE DETAILS
+            */
+
+            subtotal:
+                orderSummary
+                ? Number(
+                    orderSummary.subtotal || 0
+                )
+                : total - 60,
+
+            deliveryFee:
+                orderSummary
+                ? Number(
+                    orderSummary.deliveryFee || 40
+                )
+                : 40,
+
+            taxes:
+                orderSummary
+                ? Number(
+                    orderSummary.taxes || 20
+                )
+                : 20,
+
+            total:
+                total,
+
+
+            /*
+               PAYMENT
+            */
+
+            paymentOption:
+                paymentMethod,
+
+            upiApp:
+                upiApp,
+
+
+            /*
+               STATUS + DATE
+            */
+
+            status:
+                "PLACED",
+
+            orderDate:
+                new Date().toISOString()
+
+        };
+
+
+        orders.push(
+            existingOrder
+        );
+
+
+        localStorage.setItem(
+            "foodtapOrders",
+            JSON.stringify(orders)
+        );
+
+    }
+
+
+    /*
+       Store current order
+       for Orders and Track Order.
+    */
+
+    localStorage.setItem(
+        "foodtapCurrentOrder",
+        JSON.stringify(existingOrder)
+    );
+
+
+    localStorage.setItem(
+        "foodtapTrackingOrderId",
+        existingOrder.orderId
+    );
+
+
+    /*
+       Display order details.
+    */
+
+    document.getElementById(
+        "orderId"
+    ).textContent =
+        existingOrder.orderId;
+
+
+    document.getElementById(
+        "paymentMethod"
+    ).textContent =
+        getPaymentDisplayName();
+
+
+    document.getElementById(
+        "orderTotal"
+    ).textContent =
+        "₹" +
+        Number(
+            existingOrder.total || 0
+        ).toFixed(2);
+
+
+    /*
+       Clear cart after order.
+    */
+
+    localStorage.removeItem(
+        "foodtapCart"
+    );
+
+}
+
+
+/* VIEW ORDERS */
+
+function viewOrders() {
+
+    window.location.href =
+        "orders.html";
+
+}
+
+
+/* TRACK ORDER */
+
+function trackOrder() {
+
+    const currentOrder =
+        JSON.parse(
+            localStorage.getItem(
+                "foodtapCurrentOrder"
+            ) || "null"
+        );
+
+
+    if (currentOrder) {
+
+        localStorage.setItem(
+            "foodtapTrackingOrderId",
+            currentOrder.orderId
+        );
+
+    }
+
+
+    window.location.href =
+        "track-order.html";
+
+}
+
+
+/* SAVE ORDER WHEN PAGE LOADS */
+
+saveOrder();
+
+
+</script>
+
+</body>
+
+</html>

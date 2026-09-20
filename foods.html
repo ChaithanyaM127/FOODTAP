@@ -1,0 +1,2787 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>FOODTAP | Menu</title> <style> *{ margin:0; padding:0; box-sizing:border-box; } html{ scroll-behavior:smooth; } body{ font-family:Arial,Helvetica,sans-serif; background:#080808; color:#fff; min-height:100vh; overflow-x:hidden; } body::before{ content:""; position:fixed; inset:0; z-index:-3; background: radial-gradient(circle at 15% 15%,rgba(255,112,67,.16),transparent 28%), radial-gradient(circle at 85% 70%,rgba(255,87,34,.10),transparent 30%), linear-gradient(135deg,#050505,#101010 50%,#070707); } body::after{ content:""; position:fixed; width:500px; height:500px; border-radius:50%; background:rgba(255,98,51,.05); filter:blur(100px); top:30%; left:50%; transform:translate(-50%,-50%); z-index:-2; } header{ position:sticky; top:0; z-index:100; height:76px; display:flex; align-items:center; justify-content:space-between; padding:0 5%; background:rgba(8,8,8,.84); backdrop-filter:blur(18px); border-bottom:1px solid rgba(255,255,255,.08); } .logo{ font-size:27px; font-weight:900; letter-spacing:2px; color:#ff7043; cursor:pointer; } .logo span{ color:#fff; } .header-right{ display:flex; align-items:center; } .cart-btn{ position:relative; border:1px solid rgba(255,112,67,.45); background:rgba(255,112,67,.10); color:#fff; padding:11px 19px; border-radius:14px; cursor:pointer; font-size:14px; font-weight:700; transition:.25s; } .cart-btn:hover{ background:#ff7043; color:#111; transform:translateY(-2px); } .cart-count{ position:absolute; top:-8px; right:-7px; min-width:21px; height:21px; padding:0 5px; display:flex; align-items:center; justify-content:center; border-radius:50%; background:#ff7043; color:#111; font-size:11px; font-weight:900; } .container{ width:90%; max-width:1250px; margin:auto; } .restaurant-hero{ margin-top:32px; position:relative; min-height:270px; border-radius:28px; overflow:hidden; border:1px solid rgba(255,255,255,.10); box-shadow:0 25px 70px rgba(0,0,0,.4); } .restaurant-hero img{ width:100%; height:270px; object-fit:cover; filter:brightness(.48); } .hero-overlay{ position:absolute; inset:0; display:flex; align-items:flex-end; padding:35px; background:linear-gradient( to top, rgba(0,0,0,.94), rgba(0,0,0,.15) ); } .hero-content{ max-width:720px; } .back-link{ display:inline-block; margin-bottom:14px; color:#ff906f; font-size:13px; cursor:pointer; } .back-link:hover{ color:#ffb39e; } .hero-content h1{ font-size:42px; margin-bottom:10px; } .hero-description{ color:#ddd; line-height:1.6; font-size:15px; } .hero-meta{ display:flex; flex-wrap:wrap; gap:18px; margin-top:16px; color:#eee; font-size:14px; } .meta-rating{ color:#ffb74d; font-weight:700; } .search-area{ margin:30px 0 24px; } .search-box{ width:100%; } .search-box input{ width:100%; height:58px; border-radius:17px; border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.055); color:#fff; outline:none; padding:0 20px; font-size:15px; backdrop-filter:blur(15px); transition:.25s; } .search-box input:focus{ border-color:#ff7043; box-shadow:0 0 0 3px rgba(255,112,67,.10); } .search-box input::placeholder{ color:#8e8e8e; } .categories{ display:flex; gap:10px; overflow-x:auto; padding-bottom:8px; margin-bottom:35px; } .categories::-webkit-scrollbar{ height:4px; } .categories::-webkit-scrollbar-thumb{ background:#444; border-radius:20px; } .category{ flex-shrink:0; padding:11px 19px; border-radius:30px; border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.045); color:#ccc; cursor:pointer; transition:.25s; font-size:13px; font-weight:700; } .category:hover, .category.active{ background:#ff7043; border-color:#ff7043; color:#111; } .section-header{ display:flex; align-items:end; justify-content:space-between; margin-bottom:22px; } .section-header h2{ font-size:28px; } .section-header p{ color:#888; font-size:13px; margin-top:7px; } .food-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; padding-bottom:70px; } .food-card{ background:rgba(255,255,255,.055); border:1px solid rgba(255,255,255,.09); border-radius:22px; overflow:hidden; backdrop-filter:blur(15px); transition:.3s ease; animation:fadeUp .55s ease both; } .food-card:hover{ transform:translateY(-7px); border-color:rgba(255,112,67,.38); box-shadow:0 20px 45px rgba(0,0,0,.35); } .food-image-wrap{ height:215px; position:relative; overflow:hidden; } .food-image{ width:100%; height:100%; object-fit:cover; transition:.5s; } .food-card:hover .food-image{ transform:scale(1.06); } .food-badge{ position:absolute; top:13px; left:13px; padding:7px 10px; border-radius:9px; background:rgba(0,0,0,.76); backdrop-filter:blur(8px); font-size:11px; font-weight:800; } .veg-dot{ display:inline-block; width:8px; height:8px; border:1.5px solid #54c878; margin-right:5px; vertical-align:middle; } .nonveg-dot{ display:inline-block; width:8px; height:8px; border:1.5px solid #ef5350; margin-right:5px; vertical-align:middle; } .food-content{ padding:19px; } .food-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:12px; } .food-name{ font-size:19px; font-weight:800; line-height:1.3; } .food-price{ color:#ff805e; font-size:17px; font-weight:900; white-space:nowrap; } .food-description{ color:#999; font-size:13px; line-height:1.55; margin:9px 0 14px; min-height:40px; } .food-info{ display:flex; gap:13px; align-items:center; color:#aaa; font-size:12px; margin-bottom:16px; } .rating{ color:#ffb74d; font-weight:700; } .food-actions{ display:flex; gap:9px; } .details-btn{ flex:1; border:1px solid rgba(255,255,255,.13); background:rgba(255,255,255,.06); color:#fff; padding:12px; border-radius:12px; cursor:pointer; font-weight:700; transition:.25s; } .details-btn:hover{ background:rgba(255,255,255,.12); } .add-btn{ flex:1.3; border:none; background:#ff7043; color:#111; padding:12px; border-radius:12px; cursor:pointer; font-weight:900; transition:.25s; } .add-btn:hover{ background:#ff8a65; transform:translateY(-2px); } .quantity-control{ flex:1.3; display:flex; align-items:center; justify-content:space-between; background:rgba(255,112,67,.12); border:1px solid rgba(255,112,67,.35); border-radius:12px; padding:5px; } .quantity-control button{ width:32px; height:32px; border:none; border-radius:8px; background:#ff7043; color:#111; font-size:18px; font-weight:900; cursor:pointer; } .quantity-control button:hover{ background:#ff8a65; } .quantity-control span{ font-weight:900; min-width:25px; text-align:center; } .empty-state{ display:none; text-align:center; padding:70px 20px; border:1px dashed rgba(255,255,255,.12); border-radius:22px; color:#888; margin-bottom:60px; } .empty-state h3{ color:#fff; margin-bottom:8px; } .toast{ position:fixed; left:50%; bottom:28px; transform:translate(-50%,120px); z-index:500; min-width:280px; max-width:90%; padding:15px 20px; border-radius:14px; background:#181818; border:1px solid rgba(255,112,67,.4); box-shadow:0 15px 40px rgba(0,0,0,.5); text-align:center; font-size:14px; transition:.35s ease; } .toast.show{ transform:translate(-50%,0); } footer{ border-top:1px solid rgba(255,255,255,.08); padding:28px 5%; text-align:center; color:#666; font-size:12px; } @keyframes fadeUp{ from{ opacity:0; transform:translateY(20px); } to{ opacity:1; transform:translateY(0); } } @media(max-width:950px){ .food-grid{ grid-template-columns:repeat(2,1fr); } } @media(max-width:650px){ header{ height:68px; padding:0 5%; } .logo{ font-size:23px; } .cart-btn{ padding:9px 13px; } .restaurant-hero{ margin-top:20px; min-height:250px; } .restaurant-hero img{ height:250px; } .hero-overlay{ padding:23px; } .hero-content h1{ font-size:29px; } .food-grid{ grid-template-columns:1fr; } .section-header{ display:block; } .section-header h2{ font-size:24px; } .food-image-wrap{ height:220px; } } </style> </head> <body> <header> <div class="logo" onclick="goHome()"> FOOD<span>TAP</span> </div>
+</div> </header> <main class="container"> <section class="restaurant-hero">
+<img
+    id="restaurantImage"
+    src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1400&q=90"
+    alt="Restaurant">
+
+<div class="hero-overlay">
+
+    <div class="hero-content">
+
+        <span class="back-link" onclick="goHome()">
+            Back to Restaurants
+        </span>
+
+        <h1 id="restaurantName">
+            Restaurant
+        </h1>
+
+        <p
+            class="hero-description"
+            id="restaurantDescription">
+            Explore delicious food from this restaurant.
+        </p>
+
+        <div class="hero-meta">
+
+            <span
+                class="meta-rating"
+                id="restaurantRating">
+                Rating 4.5
+            </span>
+
+            <span id="restaurantTime">
+                25-30 min
+            </span>
+
+            <span id="restaurantCost">
+                From Rs. 150
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+</section> <section class="search-area">
+<div class="search-box">
+
+    <input
+        type="text"
+        id="foodSearch"
+        placeholder="Search for dishes..."
+        autocomplete="off">
+
+</div>
+</section> <div class="categories" id="categories" style="display:none;">
+<button
+    class="category active"
+    data-category="All">
+    All
+</button>
+
+<button
+    class="category"
+    data-category="Biryani">
+    Biryani
+</button>
+
+<button
+    class="category"
+    data-category="South Indian">
+    South Indian
+</button>
+
+<button
+    class="category"
+    data-category="Chinese">
+    Chinese
+</button>
+
+<button
+    class="category"
+    data-category="Fast Food">
+    Fast Food
+</button>
+
+<button
+    class="category"
+    data-category="Breakfast">
+    Breakfast
+</button>
+
+<button
+    class="category"
+    data-category="Desserts">
+    Desserts
+</button>
+
+<button
+    class="category"
+    data-category="Beverages">
+    Beverages
+</button>
+</div> <section>
+<div class="section-header">
+
+    <div>
+
+        <h2>
+            Explore the Menu
+        </h2>
+
+        <p id="foodResultText">
+            Delicious dishes waiting for you
+        </p>
+
+    </div>
+
+</div>
+
+<div
+    class="food-grid"
+    id="foodGrid">
+</div>
+
+<div
+    class="empty-state"
+    id="emptyState">
+
+    <h3>
+        No dishes found
+    </h3>
+
+    <p>
+        Try another food name or category.
+    </p>
+
+</div>
+</section> </main> <footer> FOODTAP — Delicious food, delivered with care. </footer> <div class="toast" id="toast"> </div> <script> 
+
+
+const restaurants = {
+
+1:{
+name:"Biryani House",
+description:"Authentic biryanis and flavorful Indian dishes prepared with aromatic spices.",
+rating:"4.7",
+time:"25-30 min",
+cost:"From Rs. 180",
+image:"https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&w=1400&q=90"
+},
+
+2:{
+name:"Puliyogare Mane",
+description:"Traditional South Indian favorites with authentic homemade flavors.",
+rating:"4.6",
+time:"20-25 min",
+cost:"From Rs. 120",
+image:"https://vanitascorner.com/wp-content/uploads/2023/05/puliyogare-FB.jpg"
+},
+
+3:{
+name:"Udupi Grand",
+description:"Classic Udupi vegetarian cuisine, dosas, idlis and traditional meals.",
+rating:"4.5",
+time:"20-25 min",
+cost:"From Rs. 100",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSw2x9nMKAf8RzedL3eqyjzPqbQR8g01D-26Qa_31PJ8g&s"
+},
+
+4:{
+name:"Veg Delight",
+description:"Fresh vegetarian dishes made with rich flavors and quality ingredients.",
+rating:"4.4",
+time:"25-30 min",
+cost:"From Rs. 140",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1vDkzTAYMRSfwNa75UFX4zTWxgdN-I7erx4zWEG-wWQ&s"
+},
+
+5:{
+name:"Spice Junction",
+description:"Bold Indian flavors, spicy curries and delicious rice preparations.",
+rating:"4.5",
+time:"25-30 min",
+cost:"From Rs. 160",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgTZ3G-O2eVvy5yMbCgbd8hC5sf2qKxxdQhJLn8iPVJ_2LnmcR_3LONlM&s=10"
+},
+
+6:{
+name:"Dragon Bowl",
+description:"Chinese-inspired favorites, noodles, rice bowls and flavorful starters.",
+rating:"4.6",
+time:"25-35 min",
+cost:"From Rs. 170",
+image:"https://minimalistbaker.com/wp-content/uploads/2018/04/DELICIOUS-Dragon-Fruit-Smoothie-Bowls-5-minutes-5-ingredients-1-blender-RICH-in-vitamins-and-minerals-vegan-glutenfree-smoothie-recipe-dragonfruit-9.jpg"
+},
+
+7:{
+name:"Wrap & Roll",
+description:"Fresh wraps and rolls packed with flavorful fillings and sauces.",
+rating:"4.4",
+time:"20-25 min",
+cost:"From Rs. 130",
+image:"https://images.unsplash.com/photo-1666493243549-7fa15d99f451?auto=format&fit=crop&w=1400&q=90"
+},
+
+8:{
+name:"Breakfast Corner",
+description:"Start your day with delicious breakfast favorites and hot beverages.",
+rating:"4.6",
+time:"15-20 min",
+cost:"From Rs. 90",
+image:"https://dineout-media-assets.swiggy.com/swiggy/image/upload/fl_lossy%2Cf_auto%2Cq_auto%2Cw_1000%2Ch_700/DINEOUT_ALL_RESTAURANTS/IMAGES/RESTAURANT_IMAGE_SERVICE/2026/2/25/b1f2479e-4190-4453-99bb-096a290d74c2_image936cde5f2b671452cb04b4a64308013d5.JPG"
+},
+
+9:{
+name:"Street Bites",
+description:"Popular street-style snacks and quick bites with exciting flavors.",
+rating:"4.3",
+time:"20-25 min",
+cost:"From Rs. 100",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGtzAhbW2db0j-mJzLiYaIaAfMdxqychSawiBwpbLyMUbefFl0eruSIbo&s=10"
+},
+
+10:{
+name:"Soup Stories",
+description:"Comforting soups prepared with fresh ingredients and delicious seasoning.",
+rating:"4.5",
+time:"20-30 min",
+cost:"From Rs. 120",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnc6nLjqdgAHBvRdwNoLfaDzlsV6idvO5pPtAgVPtz2Q&s=10"
+},
+
+11:{
+name:"Momo Station",
+description:"Steamed and fried momos served with flavorful sauces and fillings.",
+rating:"4.5",
+time:"20-25 min",
+cost:"From Rs. 130",
+image:"https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?auto=format&fit=crop&w=1400&q=90"
+},
+
+12:{
+name:"Sweet Cravings",
+description:"Desserts, sweet treats and indulgent favorites for every craving.",
+rating:"4.7",
+time:"20-30 min",
+cost:"From Rs. 100",
+image:"https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=1400&q=90"
+},
+
+13:{
+name:"Chai Adda",
+description:"Hot chai, refreshing drinks and delicious snacks for every mood.",
+rating:"4.5",
+time:"15-20 min",
+cost:"From Rs. 70",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf3pxUe8-Dl_gSi9foSEZYcNrsMyknAco5qUIIl6EjSg&s=10"
+},
+
+14:{
+name:"Fresh Sip",
+description:"Fresh juices, refreshing beverages and healthy drink options.",
+rating:"4.6",
+time:"15-20 min",
+cost:"From Rs. 80",
+image:"https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=1400&q=90"
+},
+
+15:{
+name:"Kebab Kingdom",
+description:"Kebabs, grilled specialties and tandoor favorites prepared with rich spices.",
+rating:"4.7",
+time:"25-30 min",
+cost:"From Rs. 240",
+image:"https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=1400&q=90"
+},
+
+16:{
+name:"Tandoor Tales",
+description:"Tandoori and North Indian specialties prepared with authentic flavors.",
+rating:"4.6",
+time:"30-35 min",
+cost:"From Rs. 260",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTu8s_2wsZFAlCrWn31_JPeh9de7G6nIU92RQImKzLvNQ&s"
+},
+
+17:{
+name:"Grill House",
+description:"BBQ, grilled dishes and delicious kebabs prepared to perfection.",
+rating:"4.8",
+time:"30-40 min",
+cost:"From Rs. 280",
+image:"https://www.dumpokht.com/images/succulent_kababs.png"
+},
+
+18:{ name:"Pizza Paradise", description:"Delicious pizzas, cheesy Italian favourites and freshly prepared fast food for every craving.", rating:"4.7", time:"25-35 min", cost:"₹250 for one", image:"https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=1200&q=90" },
+
+19:{ name:"Burger Hub", description:"Juicy burgers, crispy sides and refreshing beverages prepared fresh and packed with flavour.", rating:"4.8", time:"20-30 min", cost:"₹220 for one", image:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1200&q=90" },
+};
+
+
+const foods = [ 
+
+
+/* BIRYANI HOUSE */
+
+{
+    id:101,
+    restaurant:1,
+    name:"Chicken Biryani",
+    category:"Biryani",
+    type:"nonveg",
+    price:250,
+    rating:4.8,
+    time:"25 min",
+    description:"Fragrant basmati rice layered with tender chicken and aromatic spices.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJLr-RSII0IvEaUWcMKlSKC0n9alU2dTfs9jckbOtrpHkXErk5SFbrgZpP&s=10"
+},
+
+{
+    id:102,
+    restaurant:1,
+    name:"Mutton Biryani",
+    category:"Biryani",
+    type:"nonveg",
+    price:320,
+    rating:4.7,
+    time:"30 min",
+    description:"Fragrant basmati rice layered with tender mutton and aromatic Indian spices.",
+    image:"https://gingerskillet.com/wp-content/uploads/2020/12/IPMuttonBiryani_F.jpg"
+},
+
+{
+    id:104,
+    restaurant:1,
+    name:"Butter Chicken",
+    category:"North Indian",
+    type:"nonveg",
+    price:280,
+    rating:4.6,
+    time:"25 min",
+    description:"Creamy tomato-based chicken curry finished with butter and aromatic spices.",
+    image:"https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=1000&q=90"
+},
+
+{
+    id:106,
+    restaurant:1,
+    name:"Chicken Seekh Kebab",
+    category:"Grill",
+    type:"nonveg",
+    price:240,
+    rating:4.7,
+    time:"25 min",
+    description:"Juicy minced chicken blended with aromatic spices and grilled on skewers.",
+    image:"https://www.bombayfisheries.com/cdn/shop/files/Chicken-desi-special-kebab.png?v=1686812412&width=1946"
+},
+
+{
+    id:107,
+    restaurant:1,
+    name:"Chicken Tandoori",
+    category:"Tandoor",
+    type:"nonveg",
+    price:290,
+    rating:4.7,
+    time:"30 min",
+    description:"Tender chicken marinated in Indian spices and roasted in a hot tandoor.",
+    image:"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy%2Cf_auto%2Cq_auto%2Cw_400/RX_THUMBNAIL/IMAGES/VENDOR/2025/3/13/c48d05c8-1a44-4178-a4bd-cd5f64b5025b_1062971.jpg"
+},
+
+{
+    id:108,
+    restaurant:1,
+    name:"Tandoori Chicken Half",
+    category:"Tandoor",
+    type:"nonveg",
+    price:330,
+    rating:4.8,
+    time:"30 min",
+    description:"Half portion of smoky, juicy tandoori chicken with a bold spice marinade.",
+    image:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Tandoori_chicken_with_salad.jpg?width=1000"
+},
+
+{
+    id:109,
+    restaurant:1,
+    name:"Chicken Wings",
+    category:"Fast Food",
+    type:"nonveg",
+    price:220,
+    rating:4.6,
+    time:"25 min",
+    description:"Crispy chicken wings seasoned with bold spices and grilled to perfection.",
+    image:"https://png.pngtree.com/thumb_back/fh260/background/20221118/pngtree-top-view-of-barbecued-chicken-wings-with-fire-on-an-outdoor-grill-photo-image_40861208.jpg"
+},
+
+{
+    id:110,
+    restaurant:1,
+    name:"Fish Fry",
+    category:"Seafood",
+    type:"nonveg",
+    price:260,
+    rating:4.6,
+    time:"25 min",
+    description:"Fresh fish fillets marinated with spices and fried until crisp and golden.",
+    image:"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy%2Cf_auto%2Cq_auto/FOOD_CATALOG/IMAGES/CMS/2025/9/2/e53c8e24-cd89-455c-8e5e-0d2596f718f3_d258bc22-55f6-413c-b679-ace50cdcd6ee.jpg_compressed"
+},
+
+{
+    id:111,
+    restaurant:1,
+    name:"Chicken 65",
+    category:"Fast Food",
+    type:"nonveg",
+    price:230,
+    rating:4.8,
+    time:"20 min",
+    description:"Crispy, spicy fried chicken tossed with curry leaves and Indian spices.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8P3wArxM64aDgJkUGFvDbDALSV-gfaY36Hzg8i2dxCfRFpwfOCD-xhLXyeKn25I2ZmiHpz8XH5Q8vPtda9Rm8XJ5kyQqcEaQKKBHAIPU&s=10"
+},
+
+{
+    id:112,
+    restaurant:1,
+    name:"Chicken Kebab",
+    category:"Grill",
+    type:"nonveg",
+    price:230,
+    rating:4.6,
+    time:"25 min",
+    description:"Tender chicken pieces marinated with spices and grilled until smoky and juicy.",
+    image:"https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=1000&q=90"
+},
+
+{
+    id:113,
+    restaurant:1,
+    name:"Mutton Kebab",
+    category:"Grill",
+    type:"nonveg",
+    price:290,
+    rating:4.7,
+    time:"30 min",
+    description:"Tender minced mutton kebabs seasoned with aromatic spices and grilled over heat.",
+    image:"https://images.slurrp.com/prodarticles/sum3oy5wjz.webp"
+},
+
+{
+    id:114,
+    restaurant:1,
+    name:"Chicken Curry",
+    category:"North Indian",
+    type:"nonveg",
+    price:260,
+    rating:4.6,
+    time:"25 min",
+    description:"Tender chicken simmered in a rich onion, tomato and Indian spice gravy.",
+    image:"https://kitchenofdebjani.com/wp-content/uploads/2023/04/easy-indian-chicken-curry-Recipe-for-beginners-Debjanir-rannaghar.jpg"
+},
+
+{
+    id:115,
+    restaurant:1,
+    name:"Mutton Curry",
+    category:"North Indian",
+    type:"nonveg",
+    price:310,
+    rating:4.7,
+    time:"30 min",
+    description:"Slow-cooked mutton pieces in a rich, aromatic and flavorful curry.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKTTg2k_bIaZpOFy31rTGMV5cBC8EOnfMzVMPo-OwbADTao6O3LwE5aps&s=10"
+},
+
+{
+    id:116,
+    restaurant:1,
+    name:"Chicken Tikka",
+    category:"Tandoor",
+    type:"nonveg",
+    price:270,
+    rating:4.7,
+    time:"25 min",
+    description:"Boneless chicken pieces marinated in yogurt and spices, then char-grilled.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcoLZJnTu-nsD3SsmYTlBPAslNVS5RTZ5pgNoV25LrLbfHPWYCcP1tcGnw3-9xfPG967DoWlMHXWyeI0yH4pvWk6Uulfs85s2rLTANCA&s=10"
+},
+
+{
+    id:117,
+    restaurant:1,
+    name:"Chicken Pepper Fry",
+    category:"Fast Food",
+    type:"nonveg",
+    price:250,
+    rating:4.6,
+    time:"25 min",
+    description:"Juicy chicken tossed with cracked black pepper, curry leaves and aromatic spices.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMpE_lKab70G_J75mdm36k3D3DP1fu8nVtUjtOKZXe3YDuKpr3tYPhc6fk&s=10"
+},
+
+
+
+
+{
+id: 201,
+restaurant: 2,
+name: "Puliyogare",
+category: "South Indian",
+type: "veg",
+price: 120,
+rating: 4.7,
+time: "15 min",
+description: "Traditional tamarind rice prepared with roasted spices and peanuts.",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmNdNndlvUIbRnwQQ48lFvqsybEA5KUpQ7ln1TL_ApN50N9HHM7Sgv0c8&s=10"
+},
+
+{
+id: 202,
+restaurant: 2,
+name: "Curd Rice",
+category: "South Indian",
+type: "veg",
+price: 100,
+rating: 4.5,
+time: "15 min",
+description: "Creamy South Indian curd rice tempered with traditional spices.",
+image: "https://www.indianveggiedelight.com/wp-content/uploads/2022/08/curd-rice-featured.jpg"
+},
+
+{
+id: 203,
+restaurant: 2,
+name: "Masala Dosa",
+category: "South Indian",
+type: "veg",
+price: 110,
+rating: 4.7,
+time: "20 min",
+description: "Crispy dosa filled with spiced potato masala, served with chutney.",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVzfVXY7B3s3cBa1w_GXomri9nu7uiLSQ1V818N7ufudwfIny7nQPmo54&s=10"
+},
+
+{
+id: 204,
+restaurant: 2,
+name: "Idli Vada",
+category: "South Indian",
+type: "veg",
+price: 90,
+rating: 4.6,
+time: "15 min",
+description: "Soft idli and crispy vada served with hot sambar and coconut chutney.",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbhAkhToFoeLIHsGikXD1DZ0xu23LjLIi_OlXNHd2RhQ&s=10"
+},
+
+{
+id: 205,
+restaurant: 2,
+name: "Vada Sambar",
+category: "South Indian",
+type: "veg",
+price: 95,
+rating: 4.6,
+time: "15 min",
+description: "Crispy South Indian vada served with hot sambar and chutney.",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThaaSnt9g4KPWuiPdDR8alRJJ0O9YZN7Is2R50SZ-1MA&s=10"
+},
+
+{
+id: 206,
+restaurant: 2,
+name: "Set Dosa",
+category: "South Indian",
+type: "veg",
+price: 120,
+rating: 4.7,
+time: "20 min",
+description: "Soft fluffy dosas served with vegetable sagu and coconut chutney.",
+image: "https://s7ap1.scene7.com/is/image/itcportalprod/Set%20dosa%20desktop%20images"
+},
+
+{
+id: 207,
+restaurant: 2,
+name: "Rava Dosa",
+category: "South Indian",
+type: "veg",
+price: 130,
+rating: 4.6,
+time: "20 min",
+description: "Thin and crispy semolina dosa served with chutney and sambar.",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTskXpT2M5xHFHq8V3WYQCgz8CB5oW7nKYvJTiKRrnAdw&s=10"
+},
+
+{
+id: 208,
+restaurant: 2,
+name: "Pongal",
+category: "South Indian",
+type: "veg",
+price: 110,
+rating: 4.6,
+time: "15 min",
+description: "Comforting South Indian rice and lentil pongal seasoned with pepper and cumin.",
+image: "https://www.indianhealthyrecipes.com/wp-content/uploads/2021/01/pongal-ven-pongal.jpg"
+},
+
+{
+id: 209,
+restaurant: 2,
+name: "Bisi Bele Bath",
+category: "South Indian",
+type: "veg",
+price: 130,
+rating: 4.7,
+time: "20 min",
+description: "Traditional Karnataka rice and lentil dish cooked with vegetables and aromatic spices.",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThEdBgw9nkQPafw1A57F85MPD5NAzx_6jN_i9jSzBavvEmLRyM4DWKY9A&s=10"
+},
+
+{
+id: 210,
+restaurant: 2,
+name: "Lemon Rice",
+category: "South Indian",
+type: "veg",
+price: 100,
+rating: 4.6,
+time: "15 min",
+description: "Fluffy rice tossed with lemon, curry leaves, mustard seeds and roasted peanuts.",
+image: "https://assets.bonappetit.com/photos/5f35a250b4b3538eb4dc4cec/1:1/w_2560%2Cc_limit/Basically-Chitranna03.jpg"
+},
+
+{
+id: 211,
+restaurant: 2,
+name: "Vegetable Upma",
+category: "South Indian",
+type: "veg",
+price: 90,
+rating: 4.5,
+time: "15 min",
+description: "Warm semolina upma cooked with fresh vegetables and South Indian seasoning.",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1TQY-tdqDqY3zRaZPvJKQEg-M0IE23A46G9_7lxZvKUgRMheOVyE2RBtV&s=10"
+},
+
+{
+id: 212,
+restaurant: 2,
+name: "Poori Sagu",
+category: "South Indian",
+type: "veg",
+price: 120,
+rating: 4.7,
+time: "20 min",
+description: "Golden fluffy pooris served with flavorful vegetable sagu and chutney.",
+image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbhjlO8nVbLOoV6oq-k5YK7IHR-0Y7DDv3rRvTJEXckg&s=10"
+},
+
+
+
+{
+    id: 301,
+    restaurant: 3,
+    name: "Masala Dosa",
+    category: "South Indian",
+    type: "veg",
+    price: 110,
+    rating: 4.8,
+    time: "20 min",
+    description: "Crispy golden dosa with a flavorful potato filling.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4t2bYzi43bFXzOHCrc6w3qUw-s19EMuvEOKnGfbe_AhMPb_fXg5WeGMBk&s=10"
+},
+
+{
+    id: 302,
+    restaurant: 3,
+    name: "Idli Sambar",
+    category: "South Indian",
+    type: "veg",
+    price: 90,
+    rating: 4.6,
+    time: "15 min",
+    description: "Soft steamed idlis served with hot sambar and coconut chutney.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjlrWRCnBJP7bVD_jNthsGi9V1VUnNHZ7r-EkVUc0MWG9zQwr0xp7e5Toa&s=10"
+},
+
+{
+    id: 303,
+    restaurant: 3,
+    name: "South Indian Meals",
+    category: "South Indian",
+    type: "veg",
+    price: 180,
+    rating: 4.7,
+    time: "25 min",
+    description: "Complete traditional South Indian meal with rice, curries and sides.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxasZ1Ie21sMccSX_1hpROrRj7rjAwmgc57Mx8e_fdtTVGd6qL5T2OrR_4&s=10"
+},
+
+{
+    id: 304,
+    restaurant: 3,
+    name: "Medu Vada",
+    category: "South Indian",
+    type: "veg",
+    price: 90,
+    rating: 4.7,
+    time: "15 min",
+    description: "Crispy golden lentil vadas served with sambar and coconut chutney.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWA8rfJK5D1Jo-QV_Z56kiXNUQGQT2IzYav_si1ABEs2BjKyITntj6Lzo&s=10"
+},
+
+{
+    id: 305,
+    restaurant: 3,
+    name: "Rava Idli",
+    category: "South Indian",
+    type: "veg",
+    price: 100,
+    rating: 4.6,
+    time: "15 min",
+    description: "Soft steamed semolina idlis prepared with vegetables and aromatic seasoning.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbmqQUXvdW70_UiMQiOXg9L5j4_74vgvoWAWchY2kDlkfzq_PGuqZbkFpu&s=10"
+},
+
+{
+    id: 306,
+    restaurant: 3,
+    name: "Mysore Masala Dosa",
+    category: "South Indian",
+    type: "veg",
+    price: 140,
+    rating: 4.8,
+    time: "20 min",
+    description: "Crispy Mysore dosa spread with spicy red chutney and potato masala.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaU2dLCCxmX8Zjlk3XV2sOl0p9kk13EFxlk9uI0vYT8Q&s=10"
+},
+
+{
+    id: 307,
+    restaurant: 3,
+    name: "Onion Dosa",
+    category: "South Indian",
+    type: "veg",
+    price: 120,
+    rating: 4.7,
+    time: "20 min",
+    description: "Crispy dosa topped with finely sliced onions and aromatic spices.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjN8ryZni8tYGm3xVdt_-e6t8XiFY7Htx4xp2bBVFwQ2kpsq7jf8J49OA&s=10"
+},
+
+{
+    id: 308,
+    restaurant: 3,
+    name: "Uttapam",
+    category: "South Indian",
+    type: "veg",
+    price: 130,
+    rating: 4.6,
+    time: "20 min",
+    description: "Soft thick South Indian pancake topped with fresh vegetables and herbs.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMUEHnLSv5ycqHmdGtJ_YNCQCzl9gbULHU_4KQBDmahLnTqJ3U5EGosgg&s=10"
+},
+
+
+{
+    id: 310,
+    restaurant: 3,
+    name: "Tomato Bath",
+    category: "South Indian",
+    type: "veg",
+    price: 110,
+    rating: 4.6,
+    time: "20 min",
+    description: "Flavorful rice cooked with ripe tomatoes, vegetables and South Indian spices.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGOEf8vQ7_tGdHy1FMx4SQ8rqL3OPH5Bt-MjcbRbYw38lG3sTlgrPAeEU&s=10"
+},
+
+{
+    id: 311,
+    restaurant: 3,
+    name: "Rice Bath",
+    category: "South Indian",
+    type: "veg",
+    price: 110,
+    rating: 4.6,
+    time: "20 min",
+    description: "Aromatic Karnataka-style rice prepared with vegetables and fragrant spices.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSO_V9KxP4NlxZQJw6FXfN8a19gOjEXtkYyrrWD_3Z5CsC0Yq4z-ZijRuwS&s=10"
+},
+
+
+{
+    id: 313,
+    restaurant: 3,
+    name: "Gobi Manchurian",
+    category: "Chinese",
+    type: "veg",
+    price: 160,
+    rating: 4.6,
+    time: "20 min",
+    description: "Crispy cauliflower tossed in a flavorful Indo-Chinese Manchurian sauce.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnUOVAByBbnOXeR-7ZkhIa7ywE8gxiWGC7zU3eCfET7g&s=10"
+},
+
+{
+    id: 314,
+    restaurant: 3,
+    name: "Paneer Ghee Roast",
+    category: "South Indian",
+    type: "veg",
+    price: 220,
+    rating: 4.7,
+    time: "25 min",
+    description: "Soft paneer roasted with aromatic spices, ghee and a rich Mangalorean masala.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQsw4rElnSiVlVjC5CvVJVMcGd6X5l0NOoRvFZTJw_WAw9l9rO8hCrcQc&s=10"
+},
+
+
+
+{
+id:401,
+restaurant:4,
+name:"Paneer Tikka",
+category:"Fast Food",
+type:"veg",
+price:220,
+rating:4.5,
+time:"20 min",
+description:"Grilled paneer cubes marinated with spices and yogurt.",
+image:"https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=1000&q=90"
+},
+
+{
+id:402,
+restaurant:4,
+name:"Veg Fried Rice",
+category:"Chinese",
+type:"veg",
+price:180,
+rating:4.5,
+time:"20 min",
+description:"Wok-tossed rice with fresh vegetables and aromatic seasoning.",
+image:"https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=1000&q=90"
+},
+
+{
+id:403,
+restaurant:4,
+name:"Paneer Butter Masala",
+category:"North Indian",
+type:"veg",
+price:240,
+rating:4.7,
+time:"25 min",
+description:"Soft paneer cubes cooked in a rich and creamy tomato-based gravy.",
+image:"https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=1000&q=90"
+},
+
+{
+id:404,
+restaurant:4,
+name:"Palak Paneer",
+category:"North Indian",
+type:"veg",
+price:230,
+rating:4.6,
+time:"25 min",
+description:"Soft paneer cooked in a creamy spinach gravy with aromatic Indian spices.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOSOotoijJ48ld5p4jeAqOGUWbmTdoMuXMgAKEhOkAGA&s=10"
+},
+
+{
+id:405,
+restaurant:4,
+name:"Veg Manchurian",
+category:"Chinese",
+type:"veg",
+price:190,
+rating:4.6,
+time:"20 min",
+description:"Crispy vegetable balls tossed in a flavorful Indo-Chinese Manchurian sauce.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCa-aNfqTn8EvB1YjwqzyD0gDlkInG309QWwgRMQ_dmNrnRoLHcz5SZT4&s=10"
+},
+
+{
+id:406,
+restaurant:4,
+name:"Gobi Manchurian",
+category:"Chinese",
+type:"veg",
+price:180,
+rating:4.6,
+time:"20 min",
+description:"Crispy cauliflower tossed with spicy Manchurian sauce and fresh vegetables.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT_5uoiL7nMJOWke2UzwEtIV5332tpu9LOlztLEB1igN-S0wU_8-uu_3o&s=10"
+},
+
+{
+id:407,
+restaurant:4,
+name:"Veg Noodles",
+category:"Chinese",
+type:"veg",
+price:170,
+rating:4.5,
+time:"20 min",
+description:"Stir-fried noodles tossed with fresh vegetables and flavorful Chinese sauces.",
+image:"https://vismaifood.com/storage/app/uploads/public/92f/d60/bf6/thumb__1200_0_0_0_auto.jpg"
+},
+
+{
+id:408,
+restaurant:4,
+name:"Chilli Paneer",
+category:"Chinese",
+type:"veg",
+price:220,
+rating:4.6,
+time:"20 min",
+description:"Crispy paneer tossed with capsicum, onions and spicy chilli sauce.",
+image:"https://thesassyfoodie.com/wp-content/uploads/2024/01/chilli-paneer-featured-1.jpg"
+},
+
+{
+id:409,
+restaurant:4,
+name:"Veg Biryani",
+category:"Biryani",
+type:"veg",
+price:190,
+rating:4.5,
+time:"25 min",
+description:"Fragrant basmati rice cooked with fresh vegetables and aromatic biryani spices.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqtQtCSM6rgkbTxAc8cBZ5sXEWVMxSEyImjykr70Bey75cH2v24p6NK9xT&s=10"
+},
+
+
+{
+id:410,
+restaurant:4,
+name:"Dal Tadka",
+category:"North Indian",
+type:"veg",
+price:160,
+rating:4.5,
+time:"20 min",
+description:"Yellow lentils tempered with garlic, cumin, chillies and aromatic spices.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhgawKiGXpuNylUCecjvCELJHTp5-INFbMofmO_eVg5g&s=10"
+},
+
+
+
+
+{
+id:411,
+restaurant:4,
+name:"Veg Pulao",
+category:"Rice",
+type:"veg",
+price:170,
+rating:4.5,
+time:"20 min",
+description:"Aromatic basmati rice cooked with fresh vegetables and fragrant spices.",
+image:"https://ministryofcurry.com/wp-content/uploads/2023/10/paneer-biryani_-9.jpg"
+},
+
+
+
+{
+id:501,
+restaurant:5,
+name:"Chicken Kebab",
+category:"Fast Food",
+type:"nonveg",
+price:230,
+rating:4.6,
+time:"25 min",
+description:"Juicy chicken pieces grilled with aromatic spices.",
+image:"https://iamhomesteader.com/wp-content/uploads/2025/02/Firecracker-Chicken-Skewers-4.jpg"
+},
+
+{
+id:502,
+restaurant:5,
+name:"Chicken Curry",
+category:"North Indian",
+type:"nonveg",
+price:260,
+rating:4.5,
+time:"25 min",
+description:"Tender chicken cooked in a rich and flavorful Indian curry.",
+image:"https://vismaifood.com/storage/app/uploads/public/d58/a6e/2b7/thumb__700_0_0_0_auto.jpg"
+},
+
+
+
+{
+id:505,
+restaurant:5,
+name:"Chicken Tikka",
+category:"Tandoor",
+type:"nonveg",
+price:250,
+rating:4.6,
+time:"25 min",
+description:"Tender chicken pieces marinated with yogurt and spices, roasted to perfection.",
+image:"https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=1000&q=90"
+},
+
+{
+id:506,
+restaurant:5,
+name:"Chicken 65",
+category:"Fast Food",
+type:"nonveg",
+price:220,
+rating:4.6,
+time:"20 min",
+description:"Crispy spicy fried chicken tossed with curry leaves and aromatic spices.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQUwqrCamkEWAsLQ6611JJHQZjvfmhIexn8kKX0cMicxjLQNtLRhm9bbQ6&s=10"
+},
+
+{
+id:507,
+restaurant:5,
+name:"Pepper Chicken",
+category:"South Indian",
+type:"nonveg",
+price:240,
+rating:4.5,
+time:"25 min",
+description:"Tender chicken cooked with crushed black pepper and flavorful Indian spices.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREQTk8SR5Uk9_EN_kBBMiUfrXyT4Ybp9qkLrLT8-NCAvXPNIvLWcyfOR0&s=10"
+},
+
+{
+id:508,
+restaurant:5,
+name:"Chicken Lollipop",
+category:"Fast Food",
+type:"nonveg",
+price:260,
+rating:4.6,
+time:"25 min",
+description:"Crispy chicken lollipops coated in a spicy and flavorful marinade.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaOQrzLKFcHZMyabYzkB2hQpbtAolMFfpWd2bSk4efnLWuFoXVFsXSWTRB&s=10"
+},
+
+{
+id:509,
+restaurant:5,
+name:"Mutton Curry",
+category:"North Indian",
+type:"nonveg",
+price:320,
+rating:4.6,
+time:"35 min",
+description:"Slow-cooked tender mutton prepared in a rich and spicy curry gravy.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2TrKJnJAq5oGD1onH7Sk7AewfOnhWoUbuTKrcdfvzckKtXWKGr-cekXF1&s=10"
+},
+
+
+{
+id:511,
+restaurant:5,
+name:"Chicken Fried Rice",
+category:"Chinese",
+type:"nonveg",
+price:220,
+rating:4.5,
+time:"20 min",
+description:"Wok-tossed fried rice with juicy chicken pieces, vegetables and sauces.",
+image:"https://bitesofindiaevan.com/wp-content/uploads/2024/11/Schezwan-red-chilli-chicken-fried-rice.png"
+},
+
+{
+id:512,
+restaurant:5,
+name:"Chicken Noodles",
+category:"Chinese",
+type:"nonveg",
+price:210,
+rating:4.5,
+time:"20 min",
+description:"Stir-fried noodles tossed with chicken, vegetables and flavorful sauces.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxf7yIg-akUywE_iPjpGX1U809wZdjvs8lJm8vqz-yqKwUolL-O5VFIh2X&s=10"
+},
+
+{
+id:513,
+restaurant:5,
+name:"Chilli Chicken",
+category:"Chinese",
+type:"nonveg",
+price:240,
+rating:4.6,
+time:"20 min",
+description:"Crispy chicken tossed with capsicum, onions and spicy chilli sauce.",
+image:"https://pupswithchopsticks.com/wp-content/uploads/chilli-chicken-thumbnail-500x500.jpg"
+},
+
+{
+id:514,
+restaurant:5,
+name:"Chicken Handi",
+category:"North Indian",
+type:"nonveg",
+price:290,
+rating:4.6,
+time:"30 min",
+description:"Creamy and spicy chicken curry cooked with tomatoes, onions and aromatic spices.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT14KMxVj2Q0aae5uAKZwt7x5ZJEFq2Z3zU_zsiiVvvTqS9q_MGWDIzg9g&s=10"
+},
+
+
+
+
+
+{
+id:601,
+restaurant:6,
+name:"Fruit Bowl",
+category:"Fruits",
+type:"veg",
+price:170,
+rating:4.6,
+time:"15 min",
+description:"A fresh bowl of seasonal fruits served chilled and refreshing.",
+image:"https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&fit=crop&w=1000&q=90"
+},
+
+{
+id:602,
+restaurant:6,
+name:"Mixed Fruit Salad",
+category:"Fruits",
+type:"veg",
+price:180,
+rating:4.6,
+time:"15 min",
+description:"Freshly cut apples, bananas, grapes, oranges and seasonal fruits.",
+image:"https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=1000&q=90"
+},
+
+{
+id:603,
+restaurant:6,
+name:"Mango Fruit Bowl",
+category:"Fruits",
+type:"veg",
+price:190,
+rating:4.7,
+time:"15 min",
+description:"Sweet and juicy mangoes combined with fresh seasonal fruits.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZZRhVRZshASxU9AxXJDgFh4TO3eoBVgSzHIC6FEAcZLsuQDJJV5gf2_6L&s=10"
+},
+
+{
+id:604,
+restaurant:6,
+name:"Watermelon Bowl",
+category:"Fruits",
+type:"veg",
+price:160,
+rating:4.5,
+time:"10 min",
+description:"Refreshing chilled watermelon pieces perfect for a light snack.",
+image:"https://www.homemadefoodjunkie.com/wp-content/uploads/2023/06/fruit-bowl-480x480.jpg"
+},
+
+{
+id:605,
+restaurant:6,
+name:"Pineapple Bowl",
+category:"Fruits",
+type:"veg",
+price:170,
+rating:4.6,
+time:"10 min",
+description:"Fresh juicy pineapple pieces served chilled for a refreshing treat.",
+image:"https://kitchenconfidante.com/wp-content/uploads/2016/02/Pineapple-Smoothie-Bowl-www.kitchenconfidante.com-DSC_0469.jpg"
+},
+
+{
+id:606,
+restaurant:6,
+name:"Berry Fruit Bowl",
+category:"Fruits",
+type:"veg",
+price:220,
+rating:4.7,
+time:"15 min",
+description:"A colourful mix of strawberries, blueberries and other fresh berries.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTe__ePasB8TU0FHwyhSDburOzcmQ8THgIdclwkO6M859F4YUhZnrGwsALj&s=10"
+},
+
+
+{
+id:613,
+restaurant:6,
+name:"Fruit Chaat",
+category:"Fruits",
+type:"veg",
+price:180,
+rating:4.6,
+time:"15 min",
+description:"Mixed seasonal fruits tossed with a light blend of tangy spices.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkfysEvFntuqGrnZw2S3ObgeXaCvl_GmR66XSAZc68DgzeRFkCMp3ZV8Ox&s=10"
+},
+
+{
+id:614,
+restaurant:6,
+name:"Tropical Fruit Bowl",
+category:"Fruits",
+type:"veg",
+price:220,
+rating:4.7,
+time:"15 min",
+description:"A colourful tropical mix of pineapple, mango, kiwi and watermelon.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-bcfuS_hGBrxYH43s5f8wYdTVBvruqn5yZmuxbhIv3f17EiOIjK0BQoZG&s=10"
+},
+
+{
+id:615,
+restaurant:6,
+name:"Seasonal Fruit Platter",
+category:"Fruits",
+type:"veg",
+price:250,
+rating:4.8,
+time:"15 min",
+description:"A premium platter featuring a colourful selection of fresh seasonal fruits.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOv9aYn58x8QCioNsncXJjigtSWi3MSx6TwvtrRhWl2smlFD0X9vYZBQ8&s=10"
+}, 
+
+
+
+{
+id:701,
+restaurant:7,
+name:"Chicken Wrap",
+category:"Wraps",
+type:"nonveg",
+price:160,
+rating:4.5,
+time:"15 min",
+description:"Soft wrap filled with juicy chicken, vegetables and sauces.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7PYYGjg8lGSi_L-IOSlXi-X0V2po0gCmsgLcIU8yY9nU30OeIt3Oi0Ej3&s=10"
+},
+
+{
+id:702,
+restaurant:7,
+name:"Veg Wrap",
+category:"Wraps",
+type:"veg",
+price:130,
+rating:4.4,
+time:"15 min",
+description:"Fresh vegetables and flavorful sauces wrapped in soft flatbread.",
+image:"https://jessicainthekitchen.com/wp-content/uploads/2026/05/Vegan-Veggie-Wrap-16.jpg"
+},
+
+{
+id:703,
+restaurant:7,
+name:"Paneer Wrap",
+category:"Wraps",
+type:"veg",
+price:160,
+rating:4.6,
+time:"15 min",
+description:"Soft flatbread filled with grilled paneer, fresh vegetables and creamy sauces.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9moLNSPMR4Lp-HJDJAHJIlipyE_NdZAyOkeT0tIBnNg&s=10"
+},
+
+{
+id:704,
+restaurant:7,
+name:"Chicken Tikka Wrap",
+category:"Wraps",
+type:"nonveg",
+price:190,
+rating:4.7,
+time:"20 min",
+description:"Grilled chicken tikka wrapped with crunchy vegetables and flavorful sauces.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0pvdhp9oL4z774my_nDZXMPjsXsCiEiojqnOWvL5ckvyiiNOSa0WhEaCp&s=10"
+},
+
+{
+id:705,
+restaurant:7,
+name:"Cheese Veg Roll",
+category:"Rolls",
+type:"veg",
+price:150,
+rating:4.5,
+time:"15 min",
+description:"Soft roll filled with fresh vegetables and melted cheese.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGH8YE9moxblpzaBBBwoduEsWyGfKXjgGJpGynUnsDN3xS3O9oZCaN8gN0&s=10"
+},
+
+{
+id:706,
+restaurant:7,
+name:"Chicken Cheese Roll",
+category:"Rolls",
+type:"nonveg",
+price:190,
+rating:4.6,
+time:"20 min",
+description:"Juicy chicken and melted cheese wrapped in a soft and flavorful roll.",
+image:"https://cdn.uengage.io/uploads/66344/image-ST6X74-1771668328.png"
+},
+
+
+{
+id:709,
+restaurant:7,
+name:"Spicy Chicken Roll",
+category:"Rolls",
+type:"nonveg",
+price:180,
+rating:4.6,
+time:"20 min",
+description:"Spicy seasoned chicken rolled with onions, vegetables and signature sauces.",
+image:"https://images.squarespace-cdn.com/content/v1/55be995de4b071c106b3b4c0/1600298979113-YK70534FV4N4ZC3K36NQ/Baked+Five+Spice+Chicken+Spring+Rolls+Recipe+-+Eat+Cho+Food+Blog"
+},
+
+{
+id:710,
+restaurant:7,
+name:"Falafel Wrap",
+category:"Wraps",
+type:"veg",
+price:170,
+rating:4.6,
+time:"15 min",
+description:"Crispy falafel with fresh vegetables and creamy sauce in soft flatbread.",
+image:"https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=1000&q=90"
+},
+
+{
+id:711,
+restaurant:7,
+name:"Mexican Veg Roll",
+category:"Rolls",
+type:"veg",
+price:160,
+rating:4.5,
+time:"15 min",
+description:"Spiced vegetables, beans and cheese rolled together with Mexican flavors.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJZ_esNrVbwaImPMrIjoCaaKKe7og87VKlN0rxOmAlCAUY0lVPQmiEiu0&s=10"
+},
+
+{
+id:712,
+restaurant:7,
+name:"Peri Peri Chicken Wrap",
+category:"Wraps",
+type:"nonveg",
+price:200,
+rating:4.7,
+time:"20 min",
+description:"Juicy chicken coated with peri peri spices and wrapped with fresh vegetables.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQl9tTqN4VsDlrDACING_8fw5aZVWNti5vx7B7xugsP_CPtHZAnTOh88Li3&s=10"
+},
+
+
+{
+id:714,
+restaurant:7,
+name:"Paneer Tikka Roll",
+category:"Rolls",
+type:"veg",
+price:180,
+rating:4.6,
+time:"20 min",
+description:"Spiced paneer tikka wrapped with onions, peppers and creamy sauces.",
+image:"https://www.indianhealthyrecipes.com/wp-content/uploads/2024/02/paneer-kathi-roll-recipe.jpg"
+},
+
+{
+id:715,
+restaurant:7,
+name:"Double Chicken Roll",
+category:"Rolls",
+type:"nonveg",
+price:220,
+rating:4.7,
+time:"20 min",
+description:"Loaded chicken roll packed with double chicken, vegetables and signature sauces.",
+image:"https://media-assets.swiggy.com/swiggy/image/upload/f_auto,q_auto,fl_lossy/ab677b8120557089f447c5ed68076b98"
+}, 
+
+
+
+{
+id:801,
+restaurant:8,
+name:"Idli Vada",
+category:"Breakfast",
+type:"veg",
+price:90,
+rating:4.6,
+time:"15 min",
+description:"Soft idli and crispy vada served with sambar and chutney.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDFJdCq9zzvDqq7-n7LTI3e1-XzEB2QcVn2wlg7beJxQ&s"
+},
+
+{
+id:802,
+restaurant:8,
+name:"Masala Dosa",
+category:"Breakfast",
+type:"veg",
+price:110,
+rating:4.7,
+time:"20 min",
+description:"Crispy South Indian dosa filled with delicious potato masala.",
+image:"https://i0.wp.com/chitrasfoodbook.com/wp-content/uploads/2015/08/masala-dosa.jpg?w=1200&ssl=1"
+},
+
+{
+id:803,
+restaurant:8,
+name:"Plain Dosa",
+category:"Breakfast",
+type:"veg",
+price:90,
+rating:4.5,
+time:"15 min",
+description:"Crispy golden dosa served with fresh coconut chutney and sambar.",
+image:"https://www.vegrecipesofindia.com/wp-content/uploads/2021/07/dosa-recipe-3.jpg"
+},
+
+{
+id:804,
+restaurant:8,
+name:"Rava Dosa",
+category:"Breakfast",
+type:"veg",
+price:120,
+rating:4.6,
+time:"20 min",
+description:"Thin and crispy rava dosa served with sambar and chutney.",
+image:"https://cookingfromheart.com/wp-content/uploads/2017/07/Instant-Oats-Rava-Dosa-5.jpg"
+},
+
+{
+id:805,
+restaurant:8,
+name:"Pongal",
+category:"Breakfast",
+type:"veg",
+price:100,
+rating:4.6,
+time:"15 min",
+description:"Soft and comforting South Indian pongal prepared with rice, dal and spices.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAL2H4bxPUgQgdbUX0-2wkmTD7GmQ0Yeh71MNi5ZJtzQ&s=10"
+},
+
+
+{
+id:808,
+restaurant:8,
+name:"Poori Sagu",
+category:"Breakfast",
+type:"veg",
+price:110,
+rating:4.6,
+time:"20 min",
+description:"Fluffy golden puris served with delicious vegetable sagu.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbhjlO8nVbLOoV6oq-k5YK7IHR-0Y7DDv3rRvTJEXckg&s=10"
+},
+
+{
+id:809,
+restaurant:8,
+name:"Set Dosa",
+category:"Breakfast",
+type:"veg",
+price:120,
+rating:4.6,
+time:"20 min",
+description:"Soft and fluffy set dosas served with vegetable sagu and chutney.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlWEg29rlgJvJ9COwtJLM_fO4bLhORr_CqiOdV96bh9Jm49T8BkY852ru3&s=10"
+},
+
+{
+id:810,
+restaurant:8,
+name:"Mysore Masala Dosa",
+category:"Breakfast",
+type:"veg",
+price:130,
+rating:4.7,
+time:"20 min",
+description:"Crispy dosa coated with spicy chutney and filled with potato masala.",
+image:"https://live.staticflickr.com/65535/50012104981_b3f3cb9018_b.jpg"
+},
+
+{
+id:811,
+restaurant:8,
+name:"Onion Uttapam",
+category:"Breakfast",
+type:"veg",
+price:120,
+rating:4.6,
+time:"20 min",
+description:"Soft thick uttapam topped with fresh onions and aromatic spices.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmRTsXt7MAuqZvVOA9eDctvYcTmvMxL28V0TjzwM_Iag&s=10"
+},
+
+
+{
+id:813,
+restaurant:8,
+name:"Kesari Bath",
+category:"Breakfast",
+type:"veg",
+price:80,
+rating:4.5,
+time:"10 min",
+description:"Sweet and aromatic semolina dessert prepared with ghee, saffron and nuts.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfJ6TXxMfrvyCAstfX4L45oeb8cDP6wpCvhK11uLnfBQ&s=10"
+},
+
+{
+id:814,
+restaurant:8,
+name:"Khara Bath",
+category:"Breakfast",
+type:"veg",
+price:80,
+rating:4.5,
+time:"10 min",
+description:"Spicy and flavorful South Indian semolina breakfast with vegetables.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQR1Mcxl_4nzDU48xyX9ewXt-pETJeAW6J8EES0X0MS3A&s=10"
+},
+
+{
+id:815,
+restaurant:8,
+name:"Filter Coffee",
+category:"Beverages",
+type:"veg",
+price:60,
+rating:4.7,
+time:"10 min",
+description:"Strong and aromatic South Indian filter coffee served hot.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_c5Yr-LRGqcwRxBCFdbWF0DzbPW-rSAikv7ieVCUV-A&s=10"
+},
+
+
+
+{
+id:901,
+restaurant:9,
+name:"Samosa",
+category:"Fast Food",
+type:"veg",
+price:60,
+rating:4.4,
+time:"15 min",
+description:"Crispy pastry filled with spiced potato and peas.",
+image:"https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=1000&q=90"
+},
+
+{
+id:902,
+restaurant:9,
+name:"Pav Bhaji",
+category:"Fast Food",
+type:"veg",
+price:120,
+rating:4.5,
+time:"20 min",
+description:"Spiced vegetable bhaji served with buttery toasted pav.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmRJBxnITiWW6TDH33tGDU_g2Hpo1-WdilumflReBrgw&s=10"
+},
+
+{
+id:903,
+restaurant:9,
+name:"Vada Pav",
+category:"Street Food",
+type:"veg",
+price:70,
+rating:4.5,
+time:"10 min",
+description:"Mumbai-style spicy potato vada served inside a soft pav with chutneys.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaqKUAxLi9lIcOgS90APJ8wwR9gWdJPZ8NnDBcx2ClRw&s=10"
+},
+
+
+{
+id:905,
+restaurant:9,
+name:"Bhel Puri",
+category:"Street Food",
+type:"veg",
+price:70,
+rating:4.4,
+time:"10 min",
+description:"Crunchy puffed rice mixed with vegetables, chutneys and tangy spices.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9RSdw4GCWcI3jg-IjLVUCmw8eo5Q77auBd-WvvP0WDg&s=10"
+},
+
+{
+id:906,
+restaurant:9,
+name:"Pani Puri",
+category:"Street Food",
+type:"veg",
+price:60,
+rating:4.6,
+time:"10 min",
+description:"Crispy puris filled with spicy tangy water, potato and flavorful chutneys.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTevGLdlI_Z5Xe5df5C4r-yK0p-iT4-A3tT5PtkQIAPpQ&s=10"
+},
+
+{
+id:907,
+restaurant:9,
+name:"Dahi Puri",
+category:"Street Food",
+type:"veg",
+price:90,
+rating:4.6,
+time:"10 min",
+description:"Crispy puris topped with potato, yogurt, chutneys and aromatic spices.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfMmHSjIm2Ewit1tNUSNgSuyycbJPnRmE14WeurEqGLw&s=10"
+},
+
+{
+id:908,
+restaurant:9,
+name:"Sev Puri",
+category:"Street Food",
+type:"veg",
+price:80,
+rating:4.5,
+time:"10 min",
+description:"Crispy puris topped with potato, chutneys, onions and crunchy sev.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQscv3iRc3xVAqGcoc6qkt9MTuiWqVWvcTVOgo-6_Oqmg&s=10"
+},
+
+{
+id:909,
+restaurant:9,
+name:"Masala Puri",
+category:"Street Food",
+type:"veg",
+price:70,
+rating:4.5,
+time:"10 min",
+description:"Hot spicy peas curry served over crispy puris with chutneys and sev.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQo1k6GqIyfxsyr87QCV-GAZ3SLQNOD7RH203J3zF-kcw&s=10"
+},
+
+
+{
+id:914,
+restaurant:9,
+name:"Kachori",
+category:"Street Food",
+type:"veg",
+price:70,
+rating:4.4,
+time:"15 min",
+description:"Crispy flaky pastry filled with a spicy and flavorful lentil mixture.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyEttaXlQ7Bo3umrhcpAN0fXapvKdwI5lTMU3XPWYFouUSLiIQLurpa6k&s=10"
+},
+
+
+
+ 
+
+/* SOUP STORIES */
+
+{
+    id:1001,
+    restaurant:10,
+    name:"Tomato Soup",
+    category:"Soups",
+    type:"veg",
+    price:120,
+    rating:4.5,
+    time:"15 min",
+    description:"Warm and comforting tomato soup prepared with fresh ingredients.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPDK7oeQJw7xWz3UfnQrDSwi4HkGOt9o-hSN1WDxxXBQ&s=10"
+},
+
+{
+    id:1002,
+    restaurant:10,
+    name:"Sweet Corn Soup",
+    category:"Soups",
+    type:"veg",
+    price:130,
+    rating:4.5,
+    time:"15 min",
+    description:"Light and flavorful sweet corn soup with fresh vegetables.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJjkqZy1KmB3HQbbyUsZvWiSwBjVgGsXdgQeDg-NbesA&s=10"
+},
+
+{
+    id:1003,
+    restaurant:10,
+    name:"Hot & Sour Soup",
+    category:"Soups",
+    type:"veg",
+    price:140,
+    rating:4.6,
+    time:"15 min",
+    description:"Spicy and tangy soup loaded with fresh vegetables and flavorful seasoning.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL4z75gZK2S7sAJVl_86ynaC9v3xGAe_zLUltpn57NeQ&s=10"
+},
+
+{
+    id:1004,
+    restaurant:10,
+    name:"Manchow Soup",
+    category:"Soups",
+    type:"veg",
+    price:150,
+    rating:4.6,
+    time:"15 min",
+    description:"Spicy vegetable soup topped with crispy noodles and fresh herbs.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTB-4Ic2qQjf0eJ117k0Yxr80MpQqgovc_HSubiorhhUA&s=10"
+},
+
+
+
+{
+    id:1007,
+    restaurant:10,
+    name:"Broccoli Soup",
+    category:"Soups",
+    type:"veg",
+    price:150,
+    rating:4.5,
+    time:"20 min",
+    description:"Creamy broccoli soup made with fresh broccoli and mild herbs.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIjfF0FcZRuyiAuWQobEoN2WIYt2adbtQWPr4e9Bj3ow&s=10"
+},
+
+
+
+{
+    id:1009,
+    restaurant:10,
+    name:"Carrot Ginger Soup",
+    category:"Soups",
+    type:"veg",
+    price:140,
+    rating:4.6,
+    time:"15 min",
+    description:"Smooth carrot soup enhanced with fresh ginger and aromatic spices.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5cvUJU7_pKRVzajrr2cJ-to6ZeKfu7WbcRBocDGwVWg&s=10"
+},
+
+{
+    id:1010,
+    restaurant:10,
+    name:"Lentil Soup",
+    category:"Soups",
+    type:"veg",
+    price:140,
+    rating:4.5,
+    time:"20 min",
+    description:"Comforting lentil soup cooked with vegetables and aromatic Indian spices.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUgRVOuOy4PYJkUuhRXm4-we5T73d3HZtqAki7TPRFig&s=10"
+},
+
+
+
+{
+    id:1012,
+    restaurant:10,
+    name:"Cream of Mushroom Soup",
+    category:"Soups",
+    type:"veg",
+    price:170,
+    rating:4.7,
+    time:"20 min",
+    description:"Rich and creamy mushroom soup prepared with fresh mushrooms and herbs.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEMzj-steEZsr-phe9kqEgf2n5Oe12DawP590h-I3rjQ&s=10"
+},
+
+{
+    id:1013,
+    restaurant:10,
+    name:"Mixed Vegetable Soup",
+    category:"Soups",
+    type:"veg",
+    price:140,
+    rating:4.5,
+    time:"15 min",
+    description:"Nutritious soup packed with fresh seasonal vegetables and herbs.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6oGGB5Mv_4OUag6-ltnHoSkpdqCr1H_o8O8CvpbYMtA&s=10"
+},
+
+
+{
+    id:1015,
+    restaurant:10,
+    name:"Thai Coconut Soup",
+    category:"Soups",
+    type:"veg",
+    price:180,
+    rating:4.7,
+    time:"20 min",
+    description:"Creamy coconut soup infused with aromatic herbs and refreshing Thai flavors.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyZGQ0b6HwWolSUNVuh4Pm9q2fPGpn6FL7VRNDCNqZ8w&s=10"
+},
+
+
+
+
+
+/* MOMO STATION */
+
+{
+id:1101,
+restaurant:11,
+name:"Chicken Momos",
+category:"Momos",
+type:"nonveg",
+price:150,
+rating:4.6,
+time:"20 min",
+description:"Steamed dumplings filled with seasoned chicken and served with flavorful sauce.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpm6dF-8bVhaAQIm3pb_6n9oDWdaDrNwyjd4YSC6IzuQ&s=10"
+},
+
+{
+id:1102,
+restaurant:11,
+name:"Veg Momos",
+category:"Momos",
+type:"veg",
+price:130,
+rating:4.5,
+time:"20 min",
+description:"Soft steamed dumplings packed with seasoned vegetables and delicious sauce.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ00QPaBlcdfk4JhXahWYbJomLim-f8AU-qLc3bfQ8FBA&s=10"
+},
+
+{
+id:1103,
+restaurant:11,
+name:"Paneer Momos",
+category:"Momos",
+type:"veg",
+price:150,
+rating:4.6,
+time:"20 min",
+description:"Steamed momos filled with soft paneer, vegetables and aromatic spices.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcOY94jRXIwCib2t-QghiZz6c6ALc-vN3cRbbBlWmvFA&s=10"
+},
+
+{
+id:1104,
+restaurant:11,
+name:"Fried Momos",
+category:"Momos",
+type:"veg",
+price:150,
+rating:4.5,
+time:"20 min",
+description:"Crispy golden fried momos served with spicy and flavorful dipping sauce.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEjKY2NhTy2mLLNo4Nlohh77KuIzET4rVJ65XFYf9FsA&s=10"
+},
+
+
+{
+id:1106,
+restaurant:11,
+name:"Tandoori Momos",
+category:"Momos",
+type:"veg",
+price:180,
+rating:4.7,
+time:"25 min",
+description:"Tandoori-style momos roasted with aromatic spices and smoky flavors.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQriwlqp200-y6ox7poSeyHd44Nuo2xc1d6cADJEAUiUg&s=10"
+},
+
+
+
+{
+id:1108,
+restaurant:11,
+name:"Cheese Momos",
+category:"Momos",
+type:"veg",
+price:160,
+rating:4.6,
+time:"20 min",
+description:"Soft momos filled with melted cheese and mild aromatic seasoning.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThAhoG4VLvfBsWG33TVUUovU3XjQ_OKsHHcNzvJVqE3w&s=10"
+},
+
+{
+id:1109,
+restaurant:11,
+name:"Corn Cheese Momos",
+category:"Momos",
+type:"veg",
+price:170,
+rating:4.6,
+time:"20 min",
+description:"Delicious momos stuffed with sweet corn, cheese and fresh vegetables.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS69w7CyIs2St9ZdMfKKdybeVHUMwLEM8Z4Ui6Ni_tARg&s=10"
+},
+
+{
+id:1110,
+restaurant:11,
+name:"Peri Peri Momos",
+category:"Momos",
+type:"veg",
+price:160,
+rating:4.7,
+time:"20 min",
+description:"Spicy momos tossed with bold peri peri seasoning and herbs.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXTVQLNBqBTb_MGQ4Iaesp6NvKKueGS22Db1J5taTFtA&s=10"
+},
+
+{
+id:1111,
+restaurant:11,
+name:"Schezwan Momos",
+category:"Momos",
+type:"veg",
+price:160,
+rating:4.6,
+time:"20 min",
+description:"Spicy momos served with flavorful Schezwan sauce and fresh herbs.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOeNEnhdBuF98qehCLQ9CxSbRuQXzQvQTvNTW9SWaU1g&s=10"
+},
+
+
+{
+id:1113,
+restaurant:11,
+name:"Garlic Momos",
+category:"Momos",
+type:"veg",
+price:150,
+rating:4.5,
+time:"20 min",
+description:"Flavorful momos infused with garlic, herbs and mild spices.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxDmLUtsLBgNNBlBWKz_cJrw3V0YcJP7ULthdL8fHw5A&s=10"
+},
+
+{
+id:1114,
+restaurant:11,
+name:"Chilli Momos",
+category:"Momos",
+type:"veg",
+price:160,
+rating:4.6,
+time:"20 min",
+description:"Momos tossed with fresh chillies, vegetables and spicy sauce.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8_KjdNbJuoZkGoV4K81rE9DBk463lgwAGgP4hxXPztDOh6KMd-5-Vm14&s=10"
+},
+
+{
+id:1115,
+restaurant:11,
+name:"Momo Platter",
+category:"Momos",
+type:"veg",
+price:220,
+rating:4.8,
+time:"25 min",
+description:"A delicious platter featuring a variety of steamed and fried momos.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5Sv9klqeHfdCQS1TLsT8UVm6-7jv-02PPDjDpvBRwrw&s=10"
+},
+
+
+
+
+
+/* SWEET CRAVINGS */
+
+{
+id:1201,
+restaurant:12,
+name:"Gulab Jamun",
+category:"Desserts",
+type:"veg",
+price:90,
+rating:4.7,
+time:"10 min",
+description:"Soft golden dumplings soaked in fragrant sugar syrup.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZI8sJv8_Go96Hn3rFD6JiVIElf8mCd1i2bg2uu2E2CA&s=10"
+},
+
+{
+id:1202,
+restaurant:12,
+name:"Chocolate Cake",
+category:"Desserts",
+type:"veg",
+price:150,
+rating:4.6,
+time:"15 min",
+description:"Rich chocolate cake with a soft texture and deep cocoa flavor.",
+image:"https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=1000&q=90"
+},
+
+{
+id:1203,
+restaurant:12,
+name:"Rasmalai",
+category:"Desserts",
+type:"veg",
+price:120,
+rating:4.7,
+time:"10 min",
+description:"Soft cottage cheese dumplings soaked in creamy saffron milk.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6M9y31LT3g1BjX-9739Jl1eOMGt6yjK3obfruKOt5k0PW2tS4sSHZtNFwOj1tEAkK8ntsSfFH1ZAZT-k5Nbtx7QJljNoz4-0-NuynCiV1Bg&s=10"
+},
+
+{
+id:1204,
+restaurant:12,
+name:"Kaju Katli",
+category:"Desserts",
+type:"veg",
+price:140,
+rating:4.6,
+time:"10 min",
+description:"Smooth and delicious cashew fudge with a delicate sweet flavor.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr3kog2U3I1WtxofNH5KO8TB8r8ZAgH50fdNGmiIQYiQ&s=10"
+},
+
+{
+id:1205,
+restaurant:12,
+name:"Jalebi",
+category:"Desserts",
+type:"veg",
+price:80,
+rating:4.7,
+time:"10 min",
+description:"Crispy golden jalebi spirals soaked in sweet aromatic syrup.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWsJyKSGSrMck5BMhK245s_-43SCAuuhuwRco0uL7gAAz2QFzjUA7lTDNZOgpyI6TFtDxk7S7b2laTEWRH8BrcTjINYEv2MwcoUjTMa_YtAA&s=10"
+},
+
+{
+id:1206,
+restaurant:12,
+name:"Rasgulla",
+category:"Desserts",
+type:"veg",
+price:90,
+rating:4.6,
+time:"10 min",
+description:"Soft and spongy cottage cheese balls soaked in light sugar syrup.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzsmGSxCfY8u9jg5PsQcl7DH-21XLIJVvJm5j773flHA&s=10"
+},
+
+{
+id:1207,
+restaurant:12,
+name:"Gajar Ka Halwa",
+category:"Desserts",
+type:"veg",
+price:120,
+rating:4.7,
+time:"15 min",
+description:"Traditional carrot dessert slow-cooked with milk, sugar and aromatic spices.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5-vTRm3CSEYrbHugAlwRRbyOBvyyaDdiV3cuB8Wg9LQleIfeI0EJYhA798GOI7gbfSd5b2p434-bBYDXZQLgYUR-KmHP2tXLXMmWsunKA4w&s=10"
+},
+
+
+
+{
+id:1208,
+restaurant:12,
+name:"Brownie",
+category:"Desserts",
+type:"veg",
+price:130,
+rating:4.7,
+time:"15 min",
+description:"Rich and fudgy chocolate brownie with a soft center.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_gsI5OHsgb3UDkwv_ph_WLv3p-zXiH3kuP1RpIAqAZko2w3IlI0KbeOLFCx_Q5_tZ-9oT0l18gz5c_gFvLP0FAvg0nfRGevaOcC2Eaeer&s=10"
+},
+
+{
+id:1209,
+restaurant:12,
+name:"Chocolate Mousse",
+category:"Desserts",
+type:"veg",
+price:140,
+rating:4.7,
+time:"15 min",
+description:"Light and creamy chocolate mousse with an intense cocoa flavor.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMzdmlQZyliDRQcs2cMaMTu6bTaYun4sP0fxuWHcnBrQ&s=10"
+},
+
+{
+id:1210,
+restaurant:12,
+name:"Red Velvet Cake",
+category:"Desserts",
+type:"veg",
+price:170,
+rating:4.7,
+time:"15 min",
+description:"Soft red velvet cake layered with smooth creamy frosting.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRynw03PsjvGYAB0maB8njw8fOXyxDduoNu8mHjyisVw&s=10"
+},
+
+{
+id:1211,
+restaurant:12,
+name:"Cheesecake",
+category:"Desserts",
+type:"veg",
+price:180,
+rating:4.8,
+time:"15 min",
+description:"Creamy cheesecake with a smooth filling and delicious biscuit base.",
+image:"https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=1000&q=90"
+},
+
+{
+id:1212,
+restaurant:12,
+name:"Fruit Custard",
+category:"Desserts",
+type:"veg",
+price:120,
+rating:4.5,
+time:"10 min",
+description:"Creamy vanilla custard loaded with fresh seasonal fruits.",
+image:"https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=1000&q=90"
+},
+
+{
+id:1213,
+restaurant:12,
+name:"Chocolate Lava Cake",
+category:"Desserts",
+type:"veg",
+price:190,
+rating:4.8,
+time:"15 min",
+description:"Warm chocolate cake with a rich molten chocolate center.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV4xfntzf5pdvc_LBWL521o00V3gv2-hGucORupu8MeQ&s=10"
+},
+
+
+
+
+
+{
+    id:1303,
+    restaurant:13,
+    name:"Ginger Chai",
+    category:"Beverages",
+    type:"veg",
+    price:60,
+    rating:4.7,
+    time:"10 min",
+    description:"Hot chai infused with fresh ginger for a warm and refreshing taste.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDxCP8df6RNfQnP7g3ZeGSCzVYpNkdfBFELLmOQI2Vrw&s=10"
+},
+
+{
+    id:1304,
+    restaurant:13,
+    name:"Elaichi Chai",
+    category:"Beverages",
+    type:"veg",
+    price:65,
+    rating:4.7,
+    time:"10 min",
+    description:"Aromatic Indian tea flavored with fragrant cardamom and milk.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6tkT1zAWqf6StsNtITsai3N77WHY3c5tNo7Oj6Fj1mA&s=10"
+},
+
+{
+    id:1305,
+    restaurant:13,
+    name:"Lemon Tea",
+    category:"Beverages",
+    type:"veg",
+    price:55,
+    rating:4.5,
+    time:"10 min",
+    description:"Refreshing black tea blended with fresh lemon and a light sweetness.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8Mnoc8-aPg9fL3mh7GPQsuvoNTGnWc9douXJscsQ4BA&s=10"
+},
+
+{
+    id:1306,
+    restaurant:13,
+    name:"Samosa",
+    category:"Snacks",
+    type:"veg",
+    price:40,
+    rating:4.6,
+    time:"15 min",
+    description:"Crispy golden pastry filled with spicy potato and aromatic Indian spices.",
+    image:"https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=1000&q=90"
+},
+
+{
+    id:1307,
+    restaurant:13,
+    name:"Bread Pakoda",
+    category:"Snacks",
+    type:"veg",
+    price:50,
+    rating:4.5,
+    time:"15 min",
+    description:"Crispy bread coated in seasoned gram flour batter and deep fried.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpI7z4cwKkSzQ2hEDRdrbCQ1xuOO-JNoZ1SJsVUXrhmA&s=10"
+},
+
+{
+    id:1308,
+    restaurant:13,
+    name:"Onion Pakoda",
+    category:"Snacks",
+    type:"veg",
+    price:50,
+    rating:4.6,
+    time:"15 min",
+    description:"Crispy onion fritters seasoned with herbs and traditional spices.",
+    image:"https://www.sharmispassions.com/wp-content/uploads/2022/02/onion-pakoda-recipe4-500x500.jpg"
+},
+
+{
+    id:1309,
+    restaurant:13,
+    name:"Masala Bun",
+    category:"Snacks",
+    type:"veg",
+    price:45,
+    rating:4.4,
+    time:"10 min",
+    description:"Soft bun served with a flavorful spicy masala filling.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5r91viZjpw5tyY6qh1QkPqCfAPiMiIdEz8tCPzu9u82wsxdRQMBiqd_s&s=10"
+},
+
+{
+    id:1310,
+    restaurant:13,
+    name:"Aloo Bonda",
+    category:"Snacks",
+    type:"veg",
+    price:45,
+    rating:4.5,
+    time:"15 min",
+    description:"Crispy gram flour fritters filled with spiced mashed potatoes.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNtGzfh3AKTjgIxhfoDNqzR5A7PH2nLhGpo3MuoIGy7g&s=10"
+},
+
+
+{
+    id:1312,
+    restaurant:13,
+    name:"Chai & Samosa Combo",
+    category:"Combos",
+    type:"veg",
+    price:90,
+    rating:4.8,
+    time:"15 min",
+    description:"A perfect combination of hot chai and crispy spicy samosas.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbS-qZ5BMfH-i6LYSnQDuYRXRosWjK_AzyDRnzWKAndA&s=10"
+}, 
+
+
+
+
+{
+    id:1403,
+    restaurant:14,
+    name:"Pineapple Juice",
+    category:"Beverages",
+    type:"veg",
+    price:100,
+    rating:4.6,
+    time:"10 min",
+    description:"Fresh pineapple juice prepared with ripe and juicy pineapple.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjMIOdlOo2_lDNrV5mAacdbtk-8KyFHydOj84gV39u4wOqW3Z48vXv_5bE3Wtu-dnrdOU069CzDTY7jU6z2lYzaMgZRU41RN-D1VetcLSq9w&s=10"
+},
+
+{
+    id:1404,
+    restaurant:14,
+    name:"Watermelon Juice",
+    category:"Beverages",
+    type:"veg",
+    price:90,
+    rating:4.5,
+    time:"10 min",
+    description:"Cool and refreshing watermelon juice made with fresh fruit.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoIxdY8Z3DLdDRpzAJsmySHVwqRbCT6ZKiOf-LlwtmEA&s=10"
+},
+
+{
+    id:1405,
+    restaurant:14,
+    name:"Pomegranate Juice",
+    category:"Beverages",
+    type:"veg",
+    price:130,
+    rating:4.7,
+    time:"10 min",
+    description:"Fresh pomegranate juice packed with natural fruity flavor.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-wVn9efDvNKWc_X6-BSxaUrGDPVHQRqUTxhzzUgV3AEXnzFUuSyYQ66zO0Ybj-2gV33T_2S-oACGfRBa4_YVLs5t6U2T_ZOT6FCcOyjql&s=10"
+},
+
+{
+    id:1406,
+    restaurant:14,
+    name:"Apple Juice",
+    category:"Beverages",
+    type:"veg",
+    price:110,
+    rating:4.5,
+    time:"10 min",
+    description:"Refreshing apple juice prepared from fresh and naturally sweet apples.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYJhKQSULxzeX2ozvWlPyjpoeOUbwkCx77XjiNar6vMw&s=10"
+},
+
+{
+    id:1407,
+    restaurant:14,
+    name:"Mosambi Juice",
+    category:"Beverages",
+    type:"veg",
+    price:90,
+    rating:4.6,
+    time:"10 min",
+    description:"Refreshing sweet lime juice with a naturally tangy and sweet taste.",
+    image:"https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?auto=format&fit=crop&w=1000&q=90"
+},
+
+{
+    id:1408,
+    restaurant:14,
+    name:"Mixed Fruit Juice",
+    category:"Beverages",
+    type:"veg",
+    price:130,
+    rating:4.7,
+    time:"10 min",
+    description:"A refreshing blend of fresh seasonal fruits with natural sweetness.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnk5xFenvBOd7_VAsS4c9Yv1x79SHyiut-x7e7plu9dQ&s=10"
+},
+
+{
+    id:1409,
+    restaurant:14,
+    name:"Mango Shake",
+    category:"Shakes",
+    type:"veg",
+    price:130,
+    rating:4.7,
+    time:"12 min",
+    description:"Creamy mango shake prepared with ripe mangoes and chilled milk.",
+    image:"https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?auto=format&fit=crop&w=1000&q=90"
+},
+
+{
+    id:1501,
+    restaurant:15,
+    name:"Chicken Seekh Kebab",
+    category:"Kebabs",
+    type:"nonveg",
+    price:220,
+    rating:4.7,
+    time:"25 min",
+    description:"Juicy minced chicken kebabs grilled with aromatic spices and herbs.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHibrpVUguqzSbIJD4hSX96nZYLycPef1pivL5T1OsBg&s=10"
+},
+
+{
+    id:1502,
+    restaurant:15,
+    name:"Tandoori Chicken",
+    category:"Tandoor",
+    type:"nonveg",
+    price:260,
+    rating:4.8,
+    time:"30 min",
+    description:"Tender chicken marinated in spices and roasted to perfection in a tandoor.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaxHudDRHitjoAVIvSbTIlh7tubK_sl6dVO-odsJxRxA&s=10"
+},
+
+{
+    id:1503,
+    restaurant:15,
+    name:"Mutton Seekh Kebab",
+    category:"Kebabs",
+    type:"nonveg",
+    price:280,
+    rating:4.7,
+    time:"30 min",
+    description:"Flavorful minced mutton kebabs grilled with traditional spices and herbs.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlPbSihLLQvySyCQIznmmZvmQlCZrFkDls9PdYsVloSw&s=10"
+},
+
+{
+    id:1504,
+    restaurant:15,
+    name:"Paneer Tikka",
+    category:"Tandoor",
+    type:"veg",
+    price:210,
+    rating:4.6,
+    time:"25 min",
+    description:"Soft paneer cubes marinated with spices and grilled with fresh vegetables.",
+    image:"https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=1000&q=90"
+},
+
+{
+    id:1505,
+    restaurant:15,
+    name:"Chicken Tikka",
+    category:"Kebabs",
+    type:"nonveg",
+    price:240,
+    rating:4.7,
+    time:"25 min",
+    description:"Tender chicken pieces marinated in rich spices and char-grilled for smoky flavor.",
+    image:"https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=1000&q=90"
+},
+
+{
+    id:1506,
+    restaurant:15,
+    name:"Tandoori Paneer",
+    category:"Tandoor",
+    type:"veg",
+    price:220,
+    rating:4.6,
+    time:"25 min",
+    description:"Paneer marinated in creamy spices and roasted with a delicious smoky finish.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQprE3HS9kHJVX0wv-FMn9FyGK31aNFactKhzB7_UqphA&s=10"
+},
+
+{
+    id:1507,
+    restaurant:15,
+    name:"Mutton Boti Kebab",
+    category:"Kebabs",
+    type:"nonveg",
+    price:300,
+    rating:4.8,
+    time:"35 min",
+    description:"Tender mutton pieces grilled with aromatic spices for a rich smoky taste.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqQVPx15RlTvMrJ08A0rSZduczMphx8782X9AKsQfM2g&s=10"
+},
+
+{
+    id:1508,
+    restaurant:15,
+    name:"Mixed Grill Platter",
+    category:"Grills",
+    type:"nonveg",
+    price:380,
+    rating:4.9,
+    time:"35 min",
+    description:"A delicious platter featuring assorted kebabs, grilled chicken and tandoori specialties.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTO93tEgkaxVM4QKYb349VLp9R-QwuJ60lt5tdDgKyfPQ&s=10"
+},
+
+
+{
+    id:1701,
+    restaurant:17,
+    name:"BBQ Chicken",
+    category:"Grills",
+    type:"nonveg",
+    price:280,
+    rating:4.8,
+    time:"30 min",
+    description:"Juicy chicken grilled with smoky BBQ seasoning and a delicious glaze.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRhyoCplKFKbidVykv0PPbB9r6r5QUZrdqZ9VSYX1P2A&s=10"
+},
+
+{
+    id:1702,
+    restaurant:17,
+    name:"Chicken Seekh Kebab",
+    category:"Kebabs",
+    type:"nonveg",
+    price:240,
+    rating:4.7,
+    time:"25 min",
+    description:"Tender minced chicken kebabs grilled with aromatic spices and herbs.",
+    image:"https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=1000&q=90"
+},
+
+{
+    id:1703,
+    restaurant:17,
+    name:"Mutton Seekh Kebab",
+    category:"Kebabs",
+    type:"nonveg",
+    price:300,
+    rating:4.8,
+    time:"30 min",
+    description:"Juicy minced mutton kebabs grilled with rich traditional spices.",
+    image:"https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1000&q=90"
+},
+
+{
+    id:1704,
+    restaurant:17,
+    name:"Grilled Chicken Wings",
+    category:"Grills",
+    type:"nonveg",
+    price:230,
+    rating:4.7,
+    time:"25 min",
+    description:"Crispy grilled chicken wings coated with smoky spices and BBQ flavors.",
+    image:"https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=1000&q=90"
+},
+
+{
+    id:1705,
+    restaurant:17,
+    name:"Paneer Grill",
+    category:"Grills",
+    type:"veg",
+    price:220,
+    rating:4.6,
+    time:"25 min",
+    description:"Soft paneer grilled with colorful vegetables and flavorful spices.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW3nv4vyGiH7TYDc4cr4uBWE92WI5zK42zHkmp5_mEZA&s=10"
+},
+
+{
+    id:1706,
+    restaurant:17,
+    name:"Tandoori Chicken",
+    category:"Tandoor",
+    type:"nonveg",
+    price:290,
+    rating:4.8,
+    time:"30 min",
+    description:"Chicken marinated in aromatic spices and roasted for a smoky tandoori flavor.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaxHudDRHitjoAVIvSbTIlh7tubK_sl6dVO-odsJxRxA&s=10"
+},
+
+{
+    id:1707,
+    restaurant:17,
+    name:"Mixed Grill Platter",
+    category:"Grills",
+    type:"nonveg",
+    price:400,
+    rating:4.9,
+    time:"35 min",
+    description:"A generous platter of grilled chicken, kebabs and tandoori specialties.",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSxdhTssapCykdBIM8Mtyw1zlvnGv94AicLaCNvHujdQ&s=10"
+},
+
+{
+id:1801,
+restaurant:18,
+name:"Margherita Pizza",
+category:"Pizza",
+type:"veg",
+price:199,
+rating:4.6,
+time:"25 min",
+description:"Classic pizza topped with rich tomato sauce, mozzarella cheese and fresh herbs.",
+image:"https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=1000&q=90"
+},
+{
+id:1802,
+restaurant:18,
+name:"Farmhouse Pizza",
+category:"Pizza",
+type:"veg",
+price:249,
+rating:4.7,
+time:"25 min",
+description:"Loaded pizza with onion, capsicum, tomato, mushroom and melted mozzarella cheese.",
+image:"https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1000&q=90"
+},
+{
+id:1803,
+restaurant:18,
+name:"Paneer Tikka Pizza",
+category:"Pizza",
+type:"veg",
+price:279,
+rating:4.8,
+time:"30 min",
+description:"Delicious pizza topped with spicy paneer tikka, onion, capsicum and extra cheese.",
+image:"https://images.unsplash.com/photo-1579751626657-72bc17010498?auto=format&fit=crop&w=1000&q=90"
+},
+{
+id:1804,
+restaurant:18,
+name:"Chicken Tikka Pizza",
+category:"Pizza",
+type:"nonveg",
+price:299,
+rating:4.8,
+time:"30 min",
+description:"Cheesy pizza topped with juicy chicken tikka, onion, capsicum and signature seasoning.",
+image:"https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=1000&q=90"
+},
+{
+id:1805,
+restaurant:18,
+name:"Cheese Burst Pizza",
+category:"Pizza",
+type:"veg",
+price:289,
+rating:4.7,
+time:"30 min",
+description:"Loaded cheese pizza with a rich cheese burst center and golden mozzarella topping.",
+image:"https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=1000&q=90"
+},
+{
+id:1806,
+restaurant:18,
+name:"Spicy Chicken Pizza",
+category:"Pizza",
+type:"nonveg",
+price:319,
+rating:4.9,
+time:"30 min",
+description:"Spicy chicken pizza topped with jalapenos, onion, capsicum and extra cheese.",
+image:"https://images.unsplash.com/photo-1579751626657-72bc17010498?auto=format&fit=crop&w=1000&q=90"
+},
+
+
+{
+id:1901,
+restaurant:19,
+name:"Classic Chicken Burger",
+category:"Burgers",
+type:"nonveg",
+price:180,
+rating:4.7,
+time:"20 min",
+description:"Juicy chicken patty with fresh lettuce, tomato and signature sauce.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYZvdoNHv55ogfuBOpUccLWSAPwQ_eRRjsaSBtS6Nynw&s=10"
+},
+
+{
+id:1902,
+restaurant:19,
+name:"Classic Veg Burger",
+category:"Burgers",
+type:"veg",
+price:150,
+rating:4.6,
+time:"20 min",
+description:"Crispy vegetable patty with fresh vegetables and creamy sauce.",
+image:"https://cdn.uengage.io/uploads/29124/image-9818-1787808569.jpg"
+},
+
+{
+id:1903,
+restaurant:19,
+name:"Cheese Burger",
+category:"Burgers",
+type:"nonveg",
+price:210,
+rating:4.8,
+time:"20 min",
+description:"Juicy burger layered with melted cheese and signature sauce.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgxSv76_3d4__bXrCFLvkIdkPVCuFVB0q3pSsvkLJSaQ&s=10"
+},
+
+{
+id:1904,
+restaurant:19,
+name:"Double Chicken Burger",
+category:"Burgers",
+type:"nonveg",
+price:280,
+rating:4.9,
+time:"25 min",
+description:"Two juicy chicken patties with cheese and delicious burger sauce.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQG65x7x6Z9QL0IyEdDT30JrNH8wheAIevuaJ6OTeoOWA&s=10"
+},
+
+{
+id:1905,
+restaurant:19,
+name:"Crispy Chicken Burger",
+category:"Burgers",
+type:"nonveg",
+price:230,
+rating:4.8,
+time:"25 min",
+description:"Crunchy fried chicken patty with lettuce and creamy sauce.",
+image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAU9SxzLf5KfeZP4VBSRuJlVcEqg5vtbYHwU1bmj1kfA&s=10"
+},
+
+{
+id:1906,
+restaurant:19,
+name:"Paneer Burger",
+category:"Burgers",
+type:"veg",
+price:190,
+rating:4.7,
+time:"20 min",
+description:"Crispy paneer patty with fresh vegetables and spicy sauce.",
+image:"https://www.sawadindiaka.in/wp-content/uploads/2021/05/7132f972-c0ac-400a-afa3-6e811c93bd48-1.jpg"
+}
+];
+
+
+
+const currentUser = JSON.parse( localStorage.getItem("foodtapCurrentUser") 
+); 
+if(!currentUser){ 
+window.location.href="login.html"; 
+} 
+
+const params = new URLSearchParams(window.location.search); 
+let restaurantId = Number(params.get("restaurant")
+); 
+
+const savedRestaurant = JSON.parse( localStorage.getItem( "foodtapSelectedRestaurant" ) 
+); 
+
+if(!restaurantId && savedRestaurant){
+ restaurantId = Number(savedRestaurant.id); 
+} 
+if(!restaurantId){
+ restaurantId=1; 
+} 
+
+const restaurant = restaurants[restaurantId] || restaurants[1]; 
+document.getElementById( "restaurantName" ).textContent=restaurant.name; document.getElementById( "restaurantDescription" ).textContent=restaurant.description; document.getElementById( "restaurantRating" ).textContent= "Rating " + restaurant.rating; document.getElementById( "restaurantTime" ).textContent= restaurant.time; 
+document.getElementById( "restaurantCost" ).textContent= restaurant.cost; 
+document.getElementById( "restaurantImage" ).src= restaurant.image; 
+
+let cart = JSON.parse( localStorage.getItem("foodtapCart") ) || []; 
+function saveCart(){ localStorage.setItem( "foodtapCart", JSON.stringify(cart) ); 
+updateCartCount(); 
+} 
+function updateCartCount(){
+const total = cart.reduce(
+(sum,item) => sum + Number(item.quantity || 0),
+0
+);
+
+const cartCount = document.getElementById("cartCount");
+
+if(cartCount){
+    cartCount.textContent = total;
+}
+
+}
+function getQuantity(foodId){
+ const item = cart.find( item => Number(item.id) === Number(foodId) ); 
+return item ? Number(item.quantity) : 0; 
+} 
+function addToCart(foodId){ 
+const food = foods.find( item => Number(item.id) === Number(foodId) ); 
+if(!food){ return; 
+} 
+const existing = cart.find( item => Number(item.id) === Number(foodId) ); 
+if(existing){ existing.quantity = Number(existing.quantity) + 1; }else{ cart.push({ id:food.id, restaurantId:food.restaurant, restaurantName: restaurant.name, name:food.name, price:food.price, image:food.image, type:food.type, quantity:1 }); } saveCart(); renderFoods(); showToast( food.name + " added to cart" ); } function decreaseQuantity(foodId){ const index = cart.findIndex( item => Number(item.id) === Number(foodId) ); if(index===-1){ return; } cart[index].quantity--; if(cart[index].quantity<=0){ cart.splice(index,1); } saveCart(); renderFoods(); } function openFoodDetails(foodId){ const food = foods.find( item => Number(item.id) === Number(foodId) ); if(!food){ return; } localStorage.setItem( "foodtapSelectedFood", JSON.stringify(food) ); window.location.href= "food-details.html?food=" + food.id + "&restaurant=" + restaurantId; } if(Number(restaurantId) === 2){ const categories = document.getElementById("categories"); categories.style.display="none"; categories.innerHTML=""; } let selectedCategory="All"; let searchText=""; function getRestaurantFoods(){ return foods.filter( food => Number(food.restaurant) === Number(restaurantId) ); } function renderFoods(){ const grid = document.getElementById( "foodGrid" ); const empty = document.getElementById( "emptyState" ); const resultText = document.getElementById( "foodResultText" ); let list = getRestaurantFoods(); if(selectedCategory!=="All"){ list = list.filter( food => food.category .toLowerCase() === selectedCategory .toLowerCase() ); } if(searchText.trim()!==""){ const search = searchText .toLowerCase() .trim(); list = list.filter( food => food.name .toLowerCase() .includes(search) || food.description .toLowerCase() .includes(search) || food.category .toLowerCase() .includes(search) ); } grid.innerHTML=""; if(list.length===0){ empty.style.display="block"; resultText.textContent= "No dishes match your search"; return; } empty.style.display="none"; resultText.textContent= list.length + " delicious dishes available"; list.forEach( (food,index)=>{ const quantity = getQuantity(food.id); const card = document.createElement( "div" ); card.className= "food-card"; card.style.animationDelay= (index*0.05)+"s"; const typeDot = food.type==="veg" ? '<span class="veg-dot"></span>Veg' : '<span class="nonveg-dot"></span>Non-Veg'; let actionHTML=""; if(quantity>0){ actionHTML=` <div class="quantity-control" > <button onclick="decreaseQuantity(${food.id})"> - </button> <span> ${quantity} </span> <button onclick="addToCart(${food.id})"> + </button> </div> `; }else{ actionHTML=` <button class="add-btn" onclick="addToCart(${food.id})"> Add to Cart </button> `; } card.innerHTML=` <div class="food-image-wrap"> <img class="food-image" src="${food.image}" alt="${food.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=1000&q=80';"> <div class="food-badge"> ${typeDot} </div> </div> <div class="food-content"> <div class="food-top"> <div class="food-name"> ${food.name} </div> <div class="food-price"> Rs. ${food.price} </div> </div> <div class="food-description"> ${food.description} </div> <div class="food-info"> <span class="rating"> ${food.rating} </span> <span> ${food.time} </span> <span> ${food.category} </span> </div> <div class="food-actions"> <button class="details-btn" onclick="openFoodDetails(${food.id})"> View Details </button> ${actionHTML} </div> </div> `; grid.appendChild(card); } ); } document .querySelectorAll(".category") .forEach( button=>{ button.addEventListener( "click", ()=>{ document .querySelectorAll(".category") .forEach( btn => btn.classList .remove("active") ); button.classList .add("active"); selectedCategory = button.dataset.category; renderFoods(); } ); } ); document .getElementById("foodSearch") .addEventListener( "input", function(){ searchText=this.value; renderFoods(); } ); function goHome(){ window.location.href= "restaurants.html"; } function openCart(){ if(cart.length===0){ showToast( "Your cart is empty. Add some food first." ); return; } window.location.href= "cart.html"; } let toastTimer; function showToast(message){ const toast = document.getElementById( "toast" ); toast.textContent=message; toast.classList.add("show"); clearTimeout(toastTimer); toastTimer= setTimeout( ()=>{ toast.classList .remove("show"); }, 2200 ); } updateCartCount(); renderFoods(); </script> </body> </html>

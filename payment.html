@@ -1,0 +1,426 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>FOODTAP - Payment</title> <style> * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, Helvetica, sans-serif; } html { scroll-behavior: smooth; } body { min-height: 100vh; color: #fff; background: #090909; overflow-x: hidden; } body::before { content: ""; position: fixed; inset: 0; z-index: -3; background: radial-gradient( circle at 15% 15%, rgba(255, 112, 67, .16), transparent 28% ), radial-gradient( circle at 85% 25%, rgba(255, 87, 34, .11), transparent 30% ), radial-gradient( circle at 50% 90%, rgba(255, 112, 67, .08), transparent 32% ), #090909; } body::after { content: ""; position: fixed; inset: 0; z-index: -2; background: linear-gradient( 120deg, rgba(255, 255, 255, .015), transparent 30%, rgba(255, 112, 67, .018), transparent 70% ); pointer-events: none; } header { position: sticky; top: 0; z-index: 100; width: 100%; padding: 17px 5%; background: rgba(10, 10, 10, .84); backdrop-filter: blur(18px); border-bottom: 1px solid rgba(255, 255, 255, .08); } .navbar { max-width: 1400px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 25px; } .logo { font-size: 28px; font-weight: 900; letter-spacing: 1.5px; color: #ff7043; text-shadow: 0 0 20px rgba(255, 112, 67, .22); } .logo span { color: #fff; } .cart-link { color: #ddd; font-size: 14px; cursor: pointer; transition: .3s; } .cart-link:hover { color: #ff7043; } .container { width: 90%; max-width: 1100px; margin: auto; } .back-btn { display: inline-flex; align-items: center; gap: 8px; margin-top: 30px; padding: 11px 17px; border: 1px solid rgba(255, 255, 255, .1); border-radius: 13px; background: rgba(255, 255, 255, .035); color: #ddd; cursor: pointer; transition: .3s; } .back-btn:hover { border-color: #ff7043; color: #ff7043; } .page-title { margin-top: 35px; margin-bottom: 30px; } .page-title h1 { font-size: clamp(34px, 5vw, 50px); margin-bottom: 8px; } .page-title p { color: #999; font-size: 14px; } .payment-layout { display: grid; grid-template-columns: 1fr 350px; gap: 30px; margin-bottom: 70px; } .payment-section { padding: 28px; background: rgba(255, 255, 255, .035); border: 1px solid rgba(255, 255, 255, .08); border-radius: 20px; } .payment-section h2 { font-size: 22px; margin-bottom: 25px; } .payment-options { display: flex; flex-direction: column; gap: 14px; } .payment-option { position: relative; display: flex; align-items: center; gap: 15px; padding: 18px; border: 1px solid rgba(255, 255, 255, .09); border-radius: 15px; background: rgba(255, 255, 255, .025); cursor: pointer; transition: .3s; } .payment-option:hover { border-color: rgba(255, 112, 67, .4); } .payment-option.selected { border-color: #ff7043; background: rgba(255, 112, 67, .07); box-shadow: 0 0 0 1px rgba(255, 112, 67, .12); } .payment-option input { width: 18px; height: 18px; accent-color: #ff7043; cursor: pointer; } .payment-icon { width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: rgba(255, 112, 67, .1); color: #ff7043; font-size: 20px; font-weight: 900; } .payment-info { flex: 1; } .payment-info h3 { font-size: 16px; margin-bottom: 5px; } .payment-info p { color: #888; font-size: 12px; } .payment-fields { display: none; margin-top: 20px; padding: 20px; border-radius: 15px; background: rgba(255, 255, 255, .025); border: 1px solid rgba(255, 255, 255, .07); } .payment-fields.active { display: block; } .payment-fields h3 { font-size: 16px; margin-bottom: 18px; } .upi-apps { margin-bottom: 20px; } .upi-title { color: #aaa; font-size: 13px; font-weight: 700; margin-bottom: 12px; } .upi-options { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; } .upi-app { border: 1px solid rgba(255, 255, 255, .10); background: rgba(255, 255, 255, .045); color: #fff; border-radius: 15px; padding: 14px 8px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 8px; transition: .25s; } .upi-app:hover { border-color: #ff7043; background: rgba(255, 112, 67, .10); transform: translateY(-2px); } .upi-app.selected { border-color: #ff7043; background: rgba(255, 112, 67, .15); box-shadow: 0 0 0 2px rgba(255, 112, 67, .10); } .upi-icon { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 18px; background: #fff; color: #111; } .upi-icon.paytm { color: #00a9e0; } .upi-icon.phonepe { color: #6739b7; font-size: 15px; } .upi-icon.gpay { color: #4285f4; } .upi-icon.other-upi { background: #ff7043; color: #111; font-size: 10px; } .upi-app span:last-child { font-size: 12px; font-weight: 700; } .form-group { margin-bottom: 16px; } .form-group:last-child { margin-bottom: 0; } .form-group label { display: block; margin-bottom: 8px; color: #ccc; font-size: 13px; font-weight: 600; } .form-group input { width: 100%; padding: 13px 14px; border: 1px solid rgba(255, 255, 255, .1); border-radius: 11px; background: rgba(255, 255, 255, .045); color: #fff; outline: none; font-size: 14px; transition: .3s; } .form-group input:focus { border-color: #ff7043; box-shadow: 0 0 0 3px rgba(255, 112, 67, .08); } .form-group input::placeholder { color: #666; } .card-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; } .summary { height: fit-content; padding: 25px; background: rgba(255, 255, 255, .035); border: 1px solid rgba(255, 255, 255, .08); border-radius: 20px; position: sticky; top: 105px; } .summary h2 { font-size: 22px; margin-bottom: 22px; } .summary-row { display: flex; justify-content: space-between; color: #aaa; font-size: 14px; margin-bottom: 16px; } .summary-row span:last-child { color: #ddd; } .summary-divider { height: 1px; background: rgba(255, 255, 255, .08); margin: 8px 0 20px; } .summary-total { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; } .summary-total span:first-child { font-size: 16px; font-weight: 700; } .summary-total span:last-child { font-size: 25px; font-weight: 900; color: #ff7043; } .delivery-box { padding: 14px; margin-bottom: 20px; border-radius: 12px; background: rgba(255, 255, 255, .025); border: 1px solid rgba(255, 255, 255, .07); } .delivery-box-title { color: #ff7043; font-size: 12px; font-weight: 800; margin-bottom: 7px; } .delivery-box-text { color: #aaa; font-size: 12px; line-height: 1.5; } .pay-btn { width: 100%; padding: 15px 20px; border: none; border-radius: 14px; background: #ff7043; color: #111; font-size: 15px; font-weight: 900; cursor: pointer; transition: .3s; } .pay-btn:hover { background: #ff855f; transform: translateY(-2px); box-shadow: 0 12px 30px rgba(255, 112, 67, .2); } footer { margin-top: 30px; padding: 35px 5%; border-top: 1px solid rgba(255, 255, 255, .07); text-align: center; color: #777; font-size: 13px; } footer strong { color: #ff7043; } .toast { position: fixed; left: 50%; bottom: 28px; transform: translate(-50%, 30px); background: #171717; border: 1px solid rgba(255, 112, 67, .35); color: #fff; padding: 14px 21px; border-radius: 13px; opacity: 0; pointer-events: none; transition: .35s; z-index: 500; box-shadow: 0 15px 35px rgba(0, 0, 0, .4); } .toast.show { opacity: 1; transform: translate(-50%, 0); } @media (max-width: 850px) { .payment-layout { grid-template-columns: 1fr; } .summary { position: static; } } @media (max-width: 600px) { header { padding: 14px 5%; } .logo { font-size: 23px; } .payment-section { padding: 22px; } .card-row { grid-template-columns: 1fr; gap: 0; } .upi-options { grid-template-columns: repeat(2, 1fr); } } </style> </head> <body> <header>
+<div class="navbar">
+
+    <div class="logo">
+        FOOD<span>TAP</span>
+    </div>
+
+    <div
+        class="cart-link"
+        onclick="goToCart()"
+    >
+        Cart
+    </div>
+
+</div>
+</header> <main class="container">
+<button
+    class="back-btn"
+    onclick="goToCheckout()"
+>
+    ← Back to Checkout
+</button>
+
+
+<div class="page-title">
+
+    <h1>
+        Payment
+    </h1>
+
+    <p>
+        Choose your preferred payment method.
+    </p>
+
+</div>
+
+
+<div class="payment-layout">
+
+
+    <section class="payment-section">
+
+        <h2>
+            Select Payment Method
+        </h2>
+
+
+        <div class="payment-options">
+
+
+            <label
+                class="payment-option"
+                id="codOption"
+            >
+
+                <input
+                    type="radio"
+                    name="payment"
+                    value="COD"
+                    onchange="selectPayment('COD')"
+                >
+
+                <div class="payment-icon">
+                    ₹
+                </div>
+
+                <div class="payment-info">
+
+                    <h3>
+                        Cash on Delivery
+                    </h3>
+
+                    <p>
+                        Pay when your order arrives.
+                    </p>
+
+                </div>
+
+            </label>
+
+
+            <label
+                class="payment-option"
+                id="upiOption"
+            >
+
+                <input
+                    type="radio"
+                    name="payment"
+                    value="UPI"
+                    onchange="selectPayment('UPI')"
+                >
+
+                <div class="payment-icon">
+                    U
+                </div>
+
+                <div class="payment-info">
+
+                    <h3>
+                        UPI
+                    </h3>
+
+                    <p>
+                        Pay using your preferred UPI app.
+                    </p>
+
+                </div>
+
+            </label>
+
+
+            <label
+                class="payment-option"
+                id="cardOption"
+            >
+
+                <input
+                    type="radio"
+                    name="payment"
+                    value="CARD"
+                    onchange="selectPayment('CARD')"
+                >
+
+                <div class="payment-icon">
+                    C
+                </div>
+
+                <div class="payment-info">
+
+                    <h3>
+                        Debit / Credit Card
+                    </h3>
+
+                    <p>
+                        Pay securely using your card.
+                    </p>
+
+                </div>
+
+            </label>
+
+        </div>
+
+
+        <div
+            class="payment-fields"
+            id="upiFields"
+        >
+
+            <h3>
+                UPI Details
+            </h3>
+
+
+            <div class="upi-apps">
+
+                <div class="upi-title">
+                    Pay using
+                </div>
+
+                <div class="upi-options">
+
+                    <button
+                        type="button"
+                        class="upi-app"
+                        onclick="selectUPIApp('Paytm')"
+                    >
+
+                        <span class="upi-icon paytm">
+                            P
+                        </span>
+
+                        <span>
+                            Paytm
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="upi-app"
+                        onclick="selectUPIApp('PhonePe')"
+                    >
+
+                        <span class="upi-icon phonepe">
+                            पे
+                        </span>
+
+                        <span>
+                            PhonePe
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="upi-app"
+                        onclick="selectUPIApp('Google Pay')"
+                    >
+
+                        <span class="upi-icon gpay">
+                            G
+                        </span>
+
+                        <span>
+                            Google Pay
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="upi-app"
+                        onclick="selectUPIApp('Other UPI')"
+                    >
+
+                        <span class="upi-icon other-upi">
+                            UPI
+                        </span>
+
+                        <span>
+                            Other UPI
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="upiId">
+                    UPI ID
+                </label>
+
+                <input
+                    type="text"
+                    id="upiId"
+                    placeholder="example@upi"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="payment-fields"
+            id="cardFields"
+        >
+
+            <h3>
+                Card Details
+            </h3>
+
+
+            <div class="form-group">
+
+                <label for="cardNumber">
+                    Card Number
+                </label>
+
+                <input
+                    type="text"
+                    id="cardNumber"
+                    placeholder="1234 5678 9012 3456"
+                    maxlength="19"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="cardName">
+                    Card Holder Name
+                </label>
+
+                <input
+                    type="text"
+                    id="cardName"
+                    placeholder="Enter card holder name"
+                >
+
+            </div>
+
+
+            <div class="card-row">
+
+                <div class="form-group">
+
+                    <label for="expiry">
+                        Expiry
+                    </label>
+
+                    <input
+                        type="text"
+                        id="expiry"
+                        placeholder="MM/YY"
+                        maxlength="5"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="cvv">
+                        CVV
+                    </label>
+
+                    <input
+                        type="password"
+                        id="cvv"
+                        placeholder="123"
+                        maxlength="3"
+                    >
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <aside class="summary">
+
+        <h2>
+            Order Summary
+        </h2>
+
+
+        <div class="delivery-box">
+
+            <div class="delivery-box-title">
+                Delivery Address
+            </div>
+
+            <div
+                class="delivery-box-text"
+                id="deliveryAddress"
+            >
+                Loading delivery details...
+            </div>
+
+        </div>
+
+
+        <div class="summary-row">
+
+            <span>
+                Subtotal
+            </span>
+
+            <span id="subtotal">
+                ₹0
+            </span>
+
+        </div>
+
+
+        <div class="summary-row">
+
+            <span>
+                Delivery Fee
+            </span>
+
+            <span id="deliveryFee">
+                ₹40
+            </span>
+
+        </div>
+
+
+        <div class="summary-row">
+
+            <span>
+                Taxes & Charges
+            </span>
+
+            <span id="taxes">
+                ₹20
+            </span>
+
+        </div>
+
+
+        <div class="summary-divider"></div>
+
+
+        <div class="summary-total">
+
+            <span>
+                Total
+            </span>
+
+            <span id="total">
+                ₹60
+            </span>
+
+        </div>
+
+
+        <button
+            class="pay-btn"
+            onclick="continueToPlaceOrder()"
+        >
+            Continue
+        </button>
+
+    </aside>
+
+</div>
+</main> <footer>
+<strong>FOODTAP</strong>
+|
+Delicious food, delivered with care.
+</footer> <div class="toast" id="toast" ></div> <script> const currentUser = JSON.parse( localStorage.getItem("foodtapCurrentUser") || "null" ); if (!currentUser) { window.location.href = "login.html"; } const cart = JSON.parse( localStorage.getItem("foodtapCart") || "[]" ); const orderSummary = JSON.parse( localStorage.getItem("foodtapOrderSummary") || "null" ); const deliveryDetails = JSON.parse( localStorage.getItem("foodtapDeliveryDetails") || "null" ); if (cart.length === 0) { window.location.href = "restaurants.html"; } let selectedPayment = ""; let selectedUPIApp = ""; function selectPayment(method) { selectedPayment = method; document .getElementById("codOption") .classList.remove("selected"); document .getElementById("upiOption") .classList.remove("selected"); document .getElementById("cardOption") .classList.remove("selected"); document .getElementById("upiFields") .classList.remove("active"); document .getElementById("cardFields") .classList.remove("active"); if (method === "COD") { document .getElementById("codOption") .classList.add("selected"); } if (method === "UPI") { document .getElementById("upiOption") .classList.add("selected"); document .getElementById("upiFields") .classList.add("active"); } if (method === "CARD") { document .getElementById("cardOption") .classList.add("selected"); document .getElementById("cardFields") .classList.add("active"); } } function selectUPIApp(appName) { selectedUPIApp = appName; document .querySelectorAll(".upi-app") .forEach( function(button) { button.classList.remove( "selected" ); } ); document .querySelectorAll(".upi-app") .forEach( function(button) { if ( button.innerText .trim() .includes(appName) ) { button.classList.add( "selected" ); } } ); } function loadDeliveryDetails() { const addressElement = document.getElementById( "deliveryAddress" ); if (!deliveryDetails) { addressElement.textContent = "Delivery details not found."; return; } addressElement.innerHTML = ` ${deliveryDetails.name}<br> ${deliveryDetails.phone}<br> ${deliveryDetails.address}<br> ${deliveryDetails.city} - ${deliveryDetails.pincode} `; } function loadSummary() { let subtotal = 0; cart.forEach( function (item) { subtotal += item.price * (item.quantity || 1); } ); const deliveryFee = orderSummary && orderSummary.deliveryFee !== undefined ? orderSummary.deliveryFee : 40; const taxes = orderSummary && orderSummary.taxes !== undefined ? orderSummary.taxes : 20; const total = subtotal + deliveryFee + taxes; document.getElementById( "subtotal" ).textContent = "₹" + subtotal; document.getElementById( "deliveryFee" ).textContent = "₹" + deliveryFee; document.getElementById( "taxes" ).textContent = "₹" + taxes; document.getElementById( "total" ).textContent = "₹" + total; localStorage.setItem( "foodtapOrderSummary", JSON.stringify({ subtotal: subtotal, deliveryFee: deliveryFee, taxes: taxes, total: total }) ); } function continueToPlaceOrder() { if (!selectedPayment) { showToast( "Please select a payment method" ); return; } if (selectedPayment === "UPI") { if (!selectedUPIApp) { showToast( "Please select a UPI app" ); return; } const upiId = document .getElementById("upiId") .value .trim(); if (!upiId) { showToast( "Enter your UPI ID" ); return; } if (!upiId.includes("@")) { showToast( "Enter a valid UPI ID" ); return; } localStorage.setItem( "foodtapUPIApp", selectedUPIApp ); } if (selectedPayment === "CARD") { const cardNumber = document .getElementById("cardNumber") .value .replace(/\s/g, ""); const cardName = document .getElementById("cardName") .value .trim(); const expiry = document .getElementById("expiry") .value .trim(); const cvv = document .getElementById("cvv") .value .trim(); if ( cardNumber.length !== 16 || !/^[0-9]+$/.test(cardNumber) ) { showToast( "Enter a valid 16-digit card number" ); return; } if (!cardName) { showToast( "Enter card holder name" ); return; } if (!/^[0-9]{2}\/[0-9]{2}$/.test(expiry)) { showToast( "Enter expiry as MM/YY" ); return; } if ( cvv.length !== 3 || !/^[0-9]{3}$/.test(cvv) ) { showToast( "Enter a valid CVV" ); return; } } localStorage.setItem( "foodtapPaymentMethod", selectedPayment ); window.location.href = "place-order.html"; } function goToCart() { window.location.href = "cart.html"; } function goToCheckout() { window.location.href = "checkout.html"; } function showToast(message) { const toast = document.getElementById( "toast" ); toast.textContent = message; toast.classList.add( "show" ); setTimeout( function () { toast.classList.remove( "show" ); }, 2500 ); } loadDeliveryDetails(); loadSummary(); </script> </body> </html>

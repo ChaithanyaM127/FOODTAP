@@ -1,0 +1,1063 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FOODTAP - Cart</title>
+
+<style>
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        min-height: 100vh;
+        color: #fff;
+        background: #090909;
+        overflow-x: hidden;
+    }
+
+    body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -3;
+
+        background:
+            radial-gradient(
+                circle at 15% 15%,
+                rgba(255, 112, 67, .16),
+                transparent 28%
+            ),
+            radial-gradient(
+                circle at 85% 25%,
+                rgba(255, 87, 34, .11),
+                transparent 30%
+            ),
+            radial-gradient(
+                circle at 50% 90%,
+                rgba(255, 112, 67, .08),
+                transparent 32%
+            ),
+            #090909;
+    }
+
+    body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+
+        background:
+            linear-gradient(
+                120deg,
+                rgba(255, 255, 255, .015),
+                transparent 30%,
+                rgba(255, 112, 67, .018),
+                transparent 70%
+            );
+
+        pointer-events: none;
+    }
+
+    header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+
+        width: 100%;
+        padding: 17px 5%;
+
+        background: rgba(10, 10, 10, .84);
+        backdrop-filter: blur(18px);
+
+        border-bottom: 1px solid rgba(255, 255, 255, .08);
+    }
+
+    .navbar {
+        max-width: 1400px;
+        margin: auto;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        gap: 25px;
+    }
+
+    .logo {
+        font-size: 28px;
+        font-weight: 900;
+        letter-spacing: 1.5px;
+
+        color: #ff7043;
+
+        text-shadow:
+            0 0 20px rgba(255, 112, 67, .22);
+    }
+
+    .logo span {
+        color: #fff;
+    }
+
+    .cart-count {
+        color: #111;
+        font-weight: 900;
+    }
+
+    .container {
+        width: 90%;
+        max-width: 1100px;
+        margin: auto;
+    }
+
+    .back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+
+        margin-top: 30px;
+        padding: 11px 17px;
+
+        border: 1px solid rgba(255, 255, 255, .1);
+        border-radius: 13px;
+
+        background: rgba(255, 255, 255, .035);
+        color: #ddd;
+
+        cursor: pointer;
+        transition: .3s;
+    }
+
+    .back-btn:hover {
+        border-color: #ff7043;
+        color: #ff7043;
+    }
+
+    .page-title {
+        margin-top: 35px;
+        margin-bottom: 30px;
+    }
+
+    .page-title h1 {
+        font-size: clamp(34px, 5vw, 50px);
+        margin-bottom: 8px;
+    }
+
+    .page-title p {
+        color: #999;
+        font-size: 14px;
+    }
+
+    .cart-layout {
+        display: grid;
+        grid-template-columns: 1fr 350px;
+        gap: 30px;
+
+        margin-bottom: 70px;
+    }
+
+    .cart-items {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .cart-item {
+        display: grid;
+        grid-template-columns: 120px 1fr auto;
+
+        align-items: center;
+        gap: 20px;
+
+        padding: 18px;
+
+        background: rgba(255, 255, 255, .035);
+        border: 1px solid rgba(255, 255, 255, .08);
+        border-radius: 20px;
+
+        transition: .3s;
+    }
+
+    .cart-item:hover {
+        border-color: rgba(255, 112, 67, .3);
+        transform: translateY(-2px);
+    }
+
+    .cart-image {
+        width: 120px;
+        height: 100px;
+
+        border-radius: 15px;
+        overflow: hidden;
+
+        background: #181818;
+    }
+
+    .cart-image img {
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+        display: block;
+    }
+
+    .item-info h3 {
+        font-size: 19px;
+        margin-bottom: 7px;
+    }
+
+    .item-category {
+        color: #ff906f;
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+
+    .item-price {
+        color: #ff7043;
+        font-size: 17px;
+        font-weight: 900;
+    }
+
+    .quantity {
+        display: flex;
+        align-items: center;
+
+        width: fit-content;
+
+        margin-top: 13px;
+
+        border: 1px solid rgba(255, 255, 255, .1);
+        border-radius: 11px;
+
+        overflow: hidden;
+        background: #151515;
+    }
+
+    .quantity button {
+        width: 34px;
+        height: 34px;
+
+        border: none;
+
+        background: #222;
+        color: #fff;
+
+        cursor: pointer;
+        font-size: 18px;
+
+        transition: .3s;
+    }
+
+    .quantity button:hover {
+        background: #ff7043;
+        color: #111;
+    }
+
+    .quantity-value {
+        width: 38px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    .item-total {
+        text-align: right;
+    }
+
+    .item-total-price {
+        font-size: 18px;
+        font-weight: 900;
+
+        color: #fff;
+
+        margin-bottom: 12px;
+    }
+
+    .remove-btn {
+        border: none;
+        background: transparent;
+
+        color: #999;
+
+        cursor: pointer;
+        font-size: 13px;
+
+        transition: .3s;
+    }
+
+    .remove-btn:hover {
+        color: #ff7043;
+    }
+
+    .summary {
+        height: fit-content;
+
+        padding: 25px;
+
+        background: rgba(255, 255, 255, .035);
+        border: 1px solid rgba(255, 255, 255, .08);
+
+        border-radius: 20px;
+
+        position: sticky;
+        top: 105px;
+    }
+
+    .summary h2 {
+        font-size: 22px;
+        margin-bottom: 22px;
+    }
+
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+
+        color: #aaa;
+
+        font-size: 14px;
+
+        margin-bottom: 16px;
+    }
+
+    .summary-row span:last-child {
+        color: #ddd;
+    }
+
+    .summary-divider {
+        height: 1px;
+
+        background: rgba(255, 255, 255, .08);
+
+        margin: 8px 0 20px;
+    }
+
+    .summary-total {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        margin-bottom: 22px;
+    }
+
+    .summary-total span:first-child {
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .summary-total span:last-child {
+        font-size: 25px;
+        font-weight: 900;
+        color: #ff7043;
+    }
+
+    .checkout-btn {
+        width: 100%;
+
+        padding: 15px 20px;
+
+        border: none;
+        border-radius: 14px;
+
+        background: #ff7043;
+        color: #111;
+
+        font-size: 15px;
+        font-weight: 900;
+
+        cursor: pointer;
+        transition: .3s;
+    }
+
+    .checkout-btn:hover {
+        background: #ff855f;
+
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 12px 30px rgba(255, 112, 67, .2);
+    }
+
+    .empty-cart {
+        display: none;
+
+        text-align: center;
+
+        padding: 80px 20px;
+
+        background: rgba(255, 255, 255, .035);
+
+        border: 1px solid rgba(255, 255, 255, .08);
+
+        border-radius: 22px;
+
+        margin-bottom: 70px;
+    }
+
+    .empty-cart h2 {
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
+
+    .empty-cart p {
+        color: #999;
+        margin-bottom: 25px;
+    }
+
+    .browse-btn {
+        display: inline-block;
+
+        padding: 13px 22px;
+
+        border-radius: 13px;
+
+        background: #ff7043;
+        color: #111;
+
+        font-weight: 900;
+
+        text-decoration: none;
+
+        transition: .3s;
+    }
+
+    .browse-btn:hover {
+        background: #ff855f;
+        transform: translateY(-2px);
+    }
+
+    footer {
+        margin-top: 30px;
+        padding: 35px 5%;
+
+        border-top: 1px solid rgba(255, 255, 255, .07);
+
+        text-align: center;
+
+        color: #777;
+        font-size: 13px;
+    }
+
+    footer strong {
+        color: #ff7043;
+    }
+
+    .toast {
+        position: fixed;
+
+        left: 50%;
+        bottom: 28px;
+
+        transform: translate(-50%, 30px);
+
+        background: #171717;
+
+        border: 1px solid rgba(255, 112, 67, .35);
+
+        color: #fff;
+
+        padding: 14px 21px;
+
+        border-radius: 13px;
+
+        opacity: 0;
+        pointer-events: none;
+
+        transition: .35s;
+
+        z-index: 500;
+
+        box-shadow:
+            0 15px 35px rgba(0, 0, 0, .4);
+    }
+
+    .toast.show {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+
+    @media (max-width: 850px) {
+
+        .cart-layout {
+            grid-template-columns: 1fr;
+        }
+
+        .summary {
+            position: static;
+        }
+    }
+
+    @media (max-width: 600px) {
+
+        header {
+            padding: 14px 5%;
+        }
+
+        .logo {
+            font-size: 23px;
+        }
+
+        .cart-item {
+            grid-template-columns: 90px 1fr;
+            gap: 15px;
+        }
+
+        .cart-image {
+            width: 90px;
+            height: 90px;
+        }
+
+        .item-total {
+            grid-column: 2;
+            text-align: left;
+        }
+    }
+
+</style>
+</head> <body>
+<header>
+
+    <div class="navbar">
+
+        <div class="logo">
+            FOOD<span>TAP</span>
+        </div>
+
+        <div class="cart-count">
+            Cart <span id="headerCartCount">0</span>
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="container">
+
+    <button class="back-btn" onclick="goBack()">
+        ← Continue Shopping
+    </button>
+
+
+    <div class="page-title">
+
+        <h1>
+            Your Cart
+        </h1>
+
+        <p>
+            Review your items before checkout.
+        </p>
+
+    </div>
+
+
+    <div
+        class="cart-layout"
+        id="cartLayout"
+    >
+
+        <section
+            class="cart-items"
+            id="cartItems"
+        >
+        </section>
+
+
+        <aside class="summary">
+
+            <h2>
+                Order Summary
+            </h2>
+
+
+            <div class="summary-row">
+
+                <span>
+                    Subtotal
+                </span>
+
+                <span id="subtotal">
+                    ₹0
+                </span>
+
+            </div>
+
+
+            <div class="summary-row">
+
+                <span>
+                    Delivery Fee
+                </span>
+
+                <span id="deliveryFee">
+                    ₹40
+                </span>
+
+            </div>
+
+
+            <div class="summary-row">
+
+                <span>
+                    Taxes & Charges
+                </span>
+
+                <span id="taxes">
+                    ₹20
+                </span>
+
+            </div>
+
+
+            <div class="summary-divider"></div>
+
+
+            <div class="summary-total">
+
+                <span>
+                    Total
+                </span>
+
+                <span id="total">
+                    ₹60
+                </span>
+
+            </div>
+
+
+            <button
+                class="checkout-btn"
+                onclick="proceedToCheckout()"
+            >
+                Proceed to Checkout
+            </button>
+
+        </aside>
+
+    </div>
+
+
+    <div
+        class="empty-cart"
+        id="emptyCart"
+    >
+
+        <h2>
+            Your cart is empty
+        </h2>
+
+        <p>
+            Add some delicious food to continue.
+        </p>
+
+        <a
+            href="restaurants.html"
+            class="browse-btn"
+        >
+            Browse Restaurants
+        </a>
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    <strong>FOODTAP</strong>
+    |
+    Delicious food, delivered with care.
+
+</footer>
+
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+<script>
+
+    const currentUser = JSON.parse(
+        localStorage.getItem("foodtapCurrentUser") || "null"
+    );
+
+    if (!currentUser) {
+
+        window.location.href = "login.html";
+
+    }
+
+
+    let cart = JSON.parse(
+        localStorage.getItem("foodtapCart") || "[]"
+    );
+
+
+    const DELIVERY_FEE = 40;
+    const TAXES = 20;
+
+
+    function saveCart() {
+
+        localStorage.setItem(
+            "foodtapCart",
+            JSON.stringify(cart)
+        );
+
+    }
+
+
+    function renderCart() {
+
+        const cartItems =
+            document.getElementById("cartItems");
+
+        const cartLayout =
+            document.getElementById("cartLayout");
+
+        const emptyCart =
+            document.getElementById("emptyCart");
+
+
+        if (cart.length === 0) {
+
+            cartLayout.style.display = "none";
+
+            emptyCart.style.display = "block";
+
+            updateHeaderCount();
+
+            return;
+        }
+
+
+        cartLayout.style.display = "grid";
+
+        emptyCart.style.display = "none";
+
+
+        cartItems.innerHTML = "";
+
+
+        let subtotal = 0;
+
+
+        cart.forEach(
+            function (item, index) {
+
+                const quantity =
+                    item.quantity || 1;
+
+
+                const itemTotal =
+                    item.price * quantity;
+
+
+                subtotal += itemTotal;
+
+
+                const itemElement =
+                    document.createElement("div");
+
+
+                itemElement.className =
+                    "cart-item";
+
+
+                itemElement.innerHTML = `
+
+                    <div class="cart-image">
+
+                        <img
+                            src="${item.image}"
+                            alt="${item.name}"
+                        >
+
+                    </div>
+
+
+                    <div class="item-info">
+
+                        <h3>
+                            ${item.name}
+                        </h3>
+
+                        <div class="item-category">
+                            ${item.category || "Food"}
+                        </div>
+
+                        <div class="item-price">
+                            ₹${item.price}
+                        </div>
+
+
+                        <div class="quantity">
+
+                            <button
+                                onclick="changeQuantity(${index}, -1)"
+                            >
+                                −
+                            </button>
+
+                            <div class="quantity-value">
+                                ${quantity}
+                            </div>
+
+                            <button
+                                onclick="changeQuantity(${index}, 1)"
+                            >
+                                +
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="item-total">
+
+                        <div class="item-total-price">
+                            ₹${itemTotal}
+                        </div>
+
+                        <button
+                            class="remove-btn"
+                            onclick="removeItem(${index})"
+                        >
+                            Remove
+                        </button>
+
+                    </div>
+
+                `;
+
+
+                cartItems.appendChild(
+                    itemElement
+                );
+
+            }
+        );
+
+
+        const finalTotal =
+            subtotal + DELIVERY_FEE + TAXES;
+
+
+        document.getElementById(
+            "subtotal"
+        ).textContent =
+            "₹" + subtotal;
+
+
+        document.getElementById(
+            "deliveryFee"
+        ).textContent =
+            "₹" + DELIVERY_FEE;
+
+
+        document.getElementById(
+            "taxes"
+        ).textContent =
+            "₹" + TAXES;
+
+
+        document.getElementById(
+            "total"
+        ).textContent =
+            "₹" + finalTotal;
+
+
+        updateHeaderCount();
+
+    }
+
+
+    function changeQuantity(
+        index,
+        value
+    ) {
+
+        if (!cart[index]) {
+            return;
+        }
+
+
+        cart[index].quantity =
+            (cart[index].quantity || 1) + value;
+
+
+        if (cart[index].quantity <= 0) {
+
+            cart.splice(
+                index,
+                1
+            );
+
+        }
+
+
+        saveCart();
+
+        renderCart();
+
+    }
+
+
+    function removeItem(index) {
+
+        if (!cart[index]) {
+            return;
+        }
+
+
+        const removedName =
+            cart[index].name;
+
+
+        cart.splice(
+            index,
+            1
+        );
+
+
+        saveCart();
+
+        renderCart();
+
+
+        showToast(
+            removedName + " removed from cart"
+        );
+
+    }
+
+
+    function updateHeaderCount() {
+
+        const count =
+            cart.reduce(
+                function (
+                    total,
+                    item
+                ) {
+
+                    return total +
+                        (item.quantity || 1);
+
+                },
+                0
+            );
+
+
+        document.getElementById(
+            "headerCartCount"
+        ).textContent =
+            count;
+
+    }
+
+
+    function proceedToCheckout() {
+
+        if (cart.length === 0) {
+
+            showToast(
+                "Your cart is empty"
+            );
+
+            return;
+        }
+
+
+        const subtotal =
+            cart.reduce(
+                function (
+                    total,
+                    item
+                ) {
+
+                    return total +
+                        (
+                            item.price *
+                            (item.quantity || 1)
+                        );
+
+                },
+                0
+            );
+
+
+        const total =
+            subtotal +
+            DELIVERY_FEE +
+            TAXES;
+
+
+        localStorage.setItem(
+            "foodtapOrderSummary",
+            JSON.stringify({
+                subtotal: subtotal,
+                deliveryFee: DELIVERY_FEE,
+                taxes: TAXES,
+                total: total
+            })
+        );
+
+
+        window.location.href =
+            "checkout.html";
+
+    }
+
+
+    function goBack() {
+
+        window.location.href =
+            "restaurants.html";
+
+    }
+
+
+    function showToast(message) {
+
+        const toast =
+            document.getElementById(
+                "toast"
+            );
+
+
+        toast.textContent =
+            message;
+
+
+        toast.classList.add(
+            "show"
+        );
+
+
+        setTimeout(
+            function () {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            2500
+        );
+
+    }
+
+
+    renderCart();
+
+</script>
+</body> </html>

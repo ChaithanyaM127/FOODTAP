@@ -1,0 +1,210 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>FOODTAP - Create Account</title> <style> * { margin: 0; padding: 0; box-sizing: border-box; } html { min-height: 100%; } body { min-height: 100vh; font-family: Arial, Helvetica, sans-serif; color: #fff; background: #080808; overflow-x: hidden; } /* ========================================================= REAL FOOD BACKGROUND ========================================================= */ .background { position: fixed; inset: 0; z-index: 0; background-image: linear-gradient( 90deg, rgba(0,0,0,.94) 0%, rgba(0,0,0,.82) 42%, rgba(0,0,0,.55) 100% ), url("https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=2000&q=90"); background-size: cover; background-position: center; background-attachment: fixed; } .background::after { content: ""; position: absolute; inset: 0; background: radial-gradient( circle at 80% 30%, rgba(255,112,67,.18), transparent 32% ), linear-gradient( 180deg, rgba(0,0,0,.12), rgba(0,0,0,.45) ); } /* ========================================================= PAGE ========================================================= */ .page { position: relative; z-index: 2; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 45px 20px; } /* ========================================================= REGISTER CARD ========================================================= */ .register-card { width: 100%; max-width: 510px; padding: 38px; border-radius: 28px; background: rgba(10,10,10,.80); border: 1px solid rgba(255,255,255,.13); backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px); box-shadow: 0 30px 90px rgba(0,0,0,.65), 0 0 50px rgba(255,112,67,.08); animation: cardEnter .7s ease; } @keyframes cardEnter { from { opacity: 0; transform: translateY(30px) scale(.97); } to { opacity: 1; transform: translateY(0) scale(1); } } /* ========================================================= LOGO ========================================================= */ .logo { text-align: center; font-size: 36px; font-weight: 900; letter-spacing: 4px; color: #ff7043; text-shadow: 0 0 25px rgba(255,112,67,.25); margin-bottom: 8px; } .subtitle { text-align: center; color: #aaa; font-size: 14px; line-height: 1.5; margin-bottom: 25px; } /* ========================================================= BADGE ========================================================= */ .food-badge { display: flex; justify-content: center; align-items: center; width: fit-content; margin: 0 auto 22px; padding: 7px 14px; border-radius: 50px; background: rgba(255,112,67,.09); border: 1px solid rgba(255,112,67,.16); color: #ff9a78; font-size: 11px; font-weight: 700; letter-spacing: .4px; } /* ========================================================= MESSAGE ========================================================= */ .message { display: none; padding: 13px 15px; border-radius: 12px; margin-bottom: 18px; font-size: 13px; line-height: 1.5; } .message.error { display: block; color: #ffb4a7; background: rgba(255,70,40,.10); border: 1px solid rgba(255,70,40,.25); } /* ========================================================= FORM ========================================================= */ .form-group { margin-bottom: 17px; } label { display: block; color: #dedede; font-size: 13px; font-weight: 600; margin-bottom: 8px; } input { width: 100%; padding: 14px 16px; border-radius: 13px; border: 1px solid rgba(255,255,255,.11); outline: none; background: rgba(255,255,255,.055); color: #fff; font-size: 14px; transition: border .25s ease, box-shadow .25s ease, background .25s ease; } input::placeholder { color: #777; } input:focus { border-color: #ff7043; background: rgba(255,255,255,.075); box-shadow: 0 0 0 3px rgba(255,112,67,.10), 0 0 20px rgba(255,112,67,.06); } /* ========================================================= TERMS ========================================================= */ .terms { display: flex; align-items: flex-start; gap: 10px; margin: 20px 0; color: #999; font-size: 12px; line-height: 1.5; } .terms input { width: 16px; height: 16px; margin-top: 1px; accent-color: #ff7043; flex-shrink: 0; } .terms label { color: #999; font-size: 12px; margin: 0; } .terms a { color: #ff7043; text-decoration: none; } .terms a:hover { text-decoration: underline; } /* ========================================================= REGISTER BUTTON ========================================================= */ .register-btn { width: 100%; padding: 15px; border: none; border-radius: 14px; background: linear-gradient( 135deg, #ff784f, #ff4f24 ); color: #fff; font-size: 15px; font-weight: 800; cursor: pointer; box-shadow: 0 12px 30px rgba(255,80,30,.20); transition: transform .25s ease, box-shadow .25s ease, opacity .25s ease; } .register-btn:hover { transform: translateY(-2px); box-shadow: 0 17px 38px rgba(255,80,30,.32); } .register-btn:active { transform: translateY(0); } .register-btn:disabled { opacity: .65; cursor: not-allowed; } /* ========================================================= LOGIN LINK ========================================================= */ .login-text { text-align: center; margin-top: 22px; color: #888; font-size: 13px; } .login-text a { color: #ff7043; font-weight: 700; text-decoration: none; } .login-text a:hover { text-decoration: underline; } /* ========================================================= SUCCESS POPUP ========================================================= */ .success-overlay { position: fixed; inset: 0; z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(0,0,0,.78); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); animation: overlayIn .3s ease; } @keyframes overlayIn { from { opacity: 0; } to { opacity: 1; } } .success-popup { width: 100%; max-width: 410px; padding: 38px 28px; text-align: center; border-radius: 25px; background: linear-gradient( 145deg, rgba(28,28,28,.98), rgba(13,13,13,.98) ); border: 1px solid rgba(255,112,67,.35); box-shadow: 0 30px 100px rgba(0,0,0,.75), 0 0 50px rgba(255,112,67,.12); animation: popupIn .45s cubic-bezier(.2,.8,.2,1); } @keyframes popupIn { from { opacity: 0; transform: scale(.78) translateY(25px); } to { opacity: 1; transform: scale(1) translateY(0); } } .success-icon { width: 75px; height: 75px; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(40,200,100,.10); border: 1px solid rgba(40,200,100,.28); font-size: 39px; animation: successPulse 1.4s ease-in-out infinite; } @keyframes successPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.07); } } .success-popup h2 { color: #fff; font-size: 23px; margin-bottom: 11px; } .success-popup p { color: #aaa; font-size: 14px; line-height: 1.65; } .success-loading { width: 100%; height: 4px; margin-top: 25px; overflow: hidden; border-radius: 10px; background: rgba(255,255,255,.08); } .success-loading-bar { height: 100%; width: 0%; border-radius: 10px; background: #ff7043; animation: loadingBar 2s linear forwards; } @keyframes loadingBar { from { width: 0%; } to { width: 100%; } } .opening-text { margin-top: 12px; color: #ff7043; font-size: 12px; font-weight: 700; } /* ========================================================= MOBILE ========================================================= */ @media (max-width: 600px) { .page { padding: 25px 14px; align-items: flex-start; } .register-card { margin-top: 15px; padding: 28px 21px; border-radius: 22px; } .logo { font-size: 30px; } .subtitle { font-size: 13px; } .background { background-position: 62% center; } .success-popup { padding: 32px 22px; } .success-popup h2 { font-size: 21px; } } </style> </head> <body> <!-- ========================================================= REAL FOOD BACKGROUND ========================================================= --> <div class="background"></div> <!-- ========================================================= REGISTER PAGE ========================================================= --> <div class="page">
+<div class="register-card">
+
+
+    <div class="logo">
+        FOODTAP
+    </div>
+
+
+    <div class="food-badge">
+        Fresh food • Fast delivery
+    </div>
+
+
+    <div class="subtitle">
+
+        Create your account and start ordering
+        your favourite food.
+
+    </div>
+
+
+    <div id="message" class="message"></div>
+
+
+    <form id="registerForm">
+
+
+        <!-- FULL NAME -->
+
+        <div class="form-group">
+
+            <label for="name">
+                Full Name
+            </label>
+
+            <input
+                type="text"
+                id="name"
+                placeholder="Enter your full name"
+                autocomplete="name"
+                required
+            >
+
+        </div>
+
+
+        <!-- PHONE -->
+
+        <div class="form-group">
+
+            <label for="phone">
+                Phone Number
+            </label>
+
+            <input
+                type="tel"
+                id="phone"
+                placeholder="Enter your 10-digit phone number"
+                maxlength="10"
+                inputmode="numeric"
+                autocomplete="tel"
+                required
+            >
+
+        </div>
+
+
+        <!-- EMAIL -->
+
+        <div class="form-group">
+
+            <label for="email">
+                Email Address
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your email address"
+                autocomplete="email"
+                required
+            >
+
+        </div>
+
+
+        <!-- ADDRESS -->
+
+        <div class="form-group">
+
+            <label for="address">
+                Delivery Address
+            </label>
+
+            <input
+                type="text"
+                id="address"
+                placeholder="Enter your delivery address"
+                autocomplete="street-address"
+                required
+            >
+
+        </div>
+
+
+        <!-- PASSWORD -->
+
+        <div class="form-group">
+
+            <label for="password">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Create a password"
+                autocomplete="new-password"
+                required
+            >
+
+        </div>
+
+
+        <!-- CONFIRM PASSWORD -->
+
+        <div class="form-group">
+
+            <label for="confirmPassword">
+                Confirm Password
+            </label>
+
+            <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Re-enter your password"
+                autocomplete="new-password"
+                required
+            >
+
+        </div>
+
+
+        <!-- TERMS -->
+
+        <div class="terms">
+
+            <input
+                type="checkbox"
+                id="terms"
+                required
+            >
+
+            <label for="terms">
+
+                I agree to the FOODTAP
+
+                <a
+                    href="#"
+                    onclick="return false;"
+                >
+                    Terms & Conditions
+                </a>
+
+                and
+
+                <a
+                    href="#"
+                    onclick="return false;"
+                >
+                    Privacy Policy
+                </a>.
+
+            </label>
+
+        </div>
+
+
+        <!-- BUTTON -->
+
+        <button
+            type="submit"
+            class="register-btn"
+            id="registerButton"
+        >
+
+            Create Account
+
+        </button>
+
+
+    </form>
+
+
+    <!-- LOGIN -->
+
+    <div class="login-text">
+
+        Already have an account?
+
+        <a href="login.html">
+            Login
+        </a>
+
+    </div>
+
+
+</div>
+</div> <script> /* ========================================================= FOODTAP STORAGE KEYS ========================================================= */ const USERS_KEY = "foodtapUsers"; const CURRENT_USER_KEY = "foodtapCurrentUser"; /* ========================================================= ELEMENTS ========================================================= */ const registerForm = document.getElementById("registerForm"); const message = document.getElementById("message"); const registerButton = document.getElementById("registerButton"); /* ========================================================= GET SAVED USERS ========================================================= */ function getUsers() { try { const storedUsers = localStorage.getItem(USERS_KEY); if (!storedUsers) { return []; } const users = JSON.parse(storedUsers); if (!Array.isArray(users)) { return []; } return users; } catch (error) { return []; } } /* ========================================================= ERROR MESSAGE ========================================================= */ function showError(text) { message.textContent = text; message.className = "message error"; } /* ========================================================= CREATE SUCCESS POPUP ========================================================= */ function showSuccessPopup() { const overlay = document.createElement("div"); overlay.className = "success-overlay"; overlay.innerHTML = ` <div class="success-popup"> <div class="success-icon"> ✅ </div> <h2> Account Created Successfully! </h2> <p> Welcome to FOODTAP!<br> Your account has been created successfully. </p> <div class="success-loading"> <div class="success-loading-bar"></div> </div> <div class="opening-text"> Opening FOODTAP... </div> </div> `; document.body.appendChild(overlay); /* Wait 2 seconds so the user can actually see the success popup. */ setTimeout(function() { window.location.href = "restaurants.html"; }, 2000); } /* ========================================================= REGISTER FORM ========================================================= */ registerForm.addEventListener( "submit", function(event) { event.preventDefault(); /* ================================================= GET USER INPUT ================================================= */ const name = document .getElementById("name") .value .trim(); const phone = document .getElementById("phone") .value .trim(); const email = document .getElementById("email") .value .trim() .toLowerCase(); const address = document .getElementById("address") .value .trim(); /* Do NOT trim password. The password is stored exactly as the user enters it. */ const password = document .getElementById("password") .value; const confirmPassword = document .getElementById("confirmPassword") .value; const termsAccepted = document .getElementById("terms") .checked; /* ================================================= VALIDATE EMPTY FIELDS ================================================= */ if ( !name || !phone || !email || !address || !password || !confirmPassword ) { showError( "Please fill in all the fields." ); return; } /* ================================================= VALIDATE PHONE ================================================= */ if (!/^[0-9]{10}$/.test(phone)) { showError( "Please enter a valid 10-digit phone number." ); return; } /* ================================================= VALIDATE EMAIL ================================================= */ if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showError( "Please enter a valid email address." ); return; } /* ================================================= VALIDATE PASSWORD ================================================= */ if (password.length < 6) { showError( "Password must contain at least 6 characters." ); return; } /* ================================================= CONFIRM PASSWORD ================================================= */ if (password !== confirmPassword) { showError( "Passwords do not match." ); return; } /* ================================================= TERMS ================================================= */ if (!termsAccepted) { showError( "Please accept the Terms & Conditions." ); return; } /* ================================================= GET EXISTING USERS ================================================= */ const users = getUsers(); /* ================================================= CHECK DUPLICATE EMAIL ================================================= */ const existingUser = users.find(function(user) { return ( user.email && user.email.toLowerCase() === email ); }); if (existingUser) { showError( "An account with this email already exists. Please login." ); return; } /* ================================================= CREATE NEW USER ================================================= */ const newUser = { id: Date.now(), name: name, phone: phone, email: email, address: address, password: password, createdAt: new Date().toISOString() }; /* ================================================= ADD USER TO USERS ARRAY ================================================= */ users.push(newUser); /* ================================================= SAVE USER ================================================= */ try { localStorage.setItem( USERS_KEY, JSON.stringify(users) ); /* IMPORTANT: The user is automatically logged in after creating the account. */ localStorage.setItem( CURRENT_USER_KEY, JSON.stringify(newUser) ); /* Remove old remember-me information. */ localStorage.removeItem( "foodtapRememberMe" ); /* ================================================= DISABLE BUTTON ================================================= */ registerButton.disabled = true; registerButton.textContent = "Account Created"; /* ================================================= SHOW SUCCESS POPUP FIRST ================================================= */ showSuccessPopup(); } catch (error) { showError( "Unable to create your account. Please try again." ); } } ); </script> </body> </html>
